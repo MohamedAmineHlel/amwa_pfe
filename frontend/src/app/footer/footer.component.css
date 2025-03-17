@@ -1,0 +1,32 @@
+.footer {
+    background-color: #242424;
+    color: #ffffff;
+    padding: 20px;
+    text-align: center;
+    bottom: 0;
+    width: 100%;
+    height: 90px;  /* Adjust height for a more compact look */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 16px;
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.footer span {
+    color: #ffffff;
+    font-weight: 400;
+    letter-spacing: 0.5px;
+}
+/*
+.footer span:hover {
+    color: #007bff; 
+    text-decoration: underline;
+}*/
+
+@media (max-width: 768px) {
+    .footer {
+        font-size: 14px;
+        padding: 15px;
+    }
+}

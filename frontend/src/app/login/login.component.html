@@ -1,0 +1,36 @@
+<div class="card">
+    <div class="card-content">
+        <!-- Left side: Login form -->
+        <div class="left-side">
+            <h2>Login</h2>
+            
+            <p *ngIf="errorMessage" class="error-message">{{errorMessage}}</p>
+            <form (submit)="handleSubmit()">
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input id="email" type="email" [(ngModel)]="email" name="email" placeholder="Enter your email" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Password:</label>
+                    <input id="password" type="password" [(ngModel)]="password" name="password" placeholder="Enter your password" required>
+                </div>
+
+                <button type="submit">Login</button>
+            </form>
+
+            <!-- Add a button or icon for FaceID login -->
+            <div class="faceid-login">
+                <p>Or login with FaceID:</p>
+                <button (click)="goToFaceIDLogin()">
+                    <i class="fas fa-camera"></i> FaceID Login
+                </button>
+            </div>
+        </div>
+
+        <!-- Right side: Image -->
+        <div class="right-side">
+            <img src="assets/mnc.jpg" alt="Login Image" class="login-image">
+        </div>
+    </div>
+</div>

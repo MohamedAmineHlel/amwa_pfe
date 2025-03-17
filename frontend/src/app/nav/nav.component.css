@@ -1,0 +1,287 @@
+@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css");
+
+.top-navbar {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 250px;
+  height: 60px;
+  background-color: white;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  display: flex;
+  justify-content: flex-end; /* Align items to the right */
+  align-items: center;
+  padding: 0 20px;
+  z-index: 999;
+  transition: all 0.3s;
+  gap: 15px; /* Space between elements */
+}
+
+.sidebar.collapsed + .top-navbar {
+  left: 80px;
+}
+
+.search-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.search-container input {
+  padding: 8px 12px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  width: 250px;
+}
+
+.search-btn {
+  background: none;
+  border: none;
+  color: #666;
+  cursor: pointer;
+}
+
+.search-btn:hover {
+  color: #333;
+}
+/* Style for the profile name */
+p {
+  margin: 0; /* Remove default margin */
+  font-size: 1rem; /* Adjust font size */
+  font-weight: 500; /* Medium font weight */
+  color: #333; /* Dark gray color */
+  padding: 8px 12px; /* Add padding */
+  font-weight: bold; /* Make the text bold */
+  text-transform: capitalize; /* Capitalize the name */
+
+  display: inline-block; /* Make it inline-block to fit content */
+}
+
+
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  p {
+    font-size: 0.9rem; /* Smaller font size for smaller screens */
+    padding: 6px 10px; /* Adjust padding */
+  }
+}
+.profile-container {
+  display: flex;
+  align-items: center;
+}
+
+.profile-link {
+  color: #c42c2c;
+  font-size: 1.5rem;
+  text-decoration: none;
+}
+
+.profile-link:hover {
+  color: #000000;
+  background-color: #949292;
+
+}
+
+/* Style for the normal sidebar */
+.logo {
+  width: 120px;  /* Adjust size */
+  height: auto;
+  display: block;
+  margin: 0 auto 10px; /* Center the logo and add spacing */
+}
+
+/* Style for the collapsed sidebar */
+.logo-collapsed {
+  width: 40px;  /* Smaller size for collapsed mode */
+  height: auto;
+  display: block;
+  margin: 0 auto 10px;
+}
+
+.link-button {
+    background-color: blue;
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    text-decoration: none;
+    }
+    
+    nav {
+    background-color: #333;
+    padding: 10px 0;
+    padding: 20px;
+    font-size: 15px;
+    font-weight: 600;
+    }
+    
+    ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    text-align: l;
+    }
+    
+    li {
+    display: inline-block;
+    margin: 0 10px;
+    }
+    
+    a {
+    color: #fff;
+    text-decoration: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    }
+    
+   
+    
+    @media only screen and (max-width: 600px) {
+    nav {
+    padding: 5px 0;
+    }
+    
+    li {
+    display: block;
+    margin: 10px 0;
+    }
+    }
+
+.wrapper {
+  display: flex;
+  width: 100%;
+  align-items: stretch;
+}
+.sidebar {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 250px;
+  padding: 20px;
+  background-color: #660000;
+  color: white;
+  transition: all 0.3s;
+  z-index: 1000;
+  
+}
+
+.sidebar.collapsed {
+  width: 80px;
+}
+
+.sidebar-header {
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 15px;
+  text-align: center;
+  /*background-color: rgb(63, 8, 8);  */
+  padding: 5px; /* Added padding for better appearance */
+  border-radius: 5px; /* Optional: adds rounded corners */
+}
+.title-expanded {
+  font-size: 18px;  /* Adjust font size for expanded view */
+  font-weight: bold;
+  margin-bottom: 20px;  /* Add spacing from the menu */
+}
+
+.title-collapsed {
+  font-size: 18px;  /* Adjust font size for collapsed view */
+  font-weight: bold;
+  margin-bottom: 20px;  /* Add spacing from the menu */
+}
+.nav-link {
+  color: rgba(255, 255, 255, 0.8);
+  padding: 10px 15px;
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  border-radius: 4px;
+  margin-bottom: 5px;
+  
+}
+
+.nav-link:hover {
+  color: white;
+  background-color: red;
+  
+}
+
+.nav-link i {
+  font-size: 1.2rem;
+  min-width: 25px;
+}
+
+.toggle-btn {
+  position: fixed;
+  left: 250px;
+  top: 10px;
+  z-index: 1001;
+  background: #343a40;
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 0 4px 4px 0;
+  transition: all 0.3s;
+}
+
+.toggle-btn.collapsed {
+  left: 80px;
+}
+
+.toggle-btn:hover {
+  background-color: #23272b;
+}
+
+.main-content {
+  margin-left: 250px;
+  padding: 20px;
+  width: 100%;
+  min-height: 100vh;
+  transition: all 0.3s;
+}
+
+.main-content.expanded {
+  margin-left: 80px;
+}
+
+@media (max-width: 768px) {
+  .sidebar {
+    margin-left: -250px;
+  }
+  
+  .sidebar.collapsed {
+    margin-left: 0;
+  }
+  
+  .main-content {
+    margin-left: 0;
+  }
+  
+  .main-content.expanded {
+    margin-left: 0;
+  }
+  
+  .toggle-btn {
+    left: 10px;
+  }
+  
+  .toggle-btn.collapsed {
+    left: 250px;
+  }
+}
+
+.text-white {
+  color: white; /* Ensures text remains white */
+  font-size: 20px;
+ 
+}
+.text-white2 {
+  color: white; /* Ensures text remains white */
+  font-size: 15px;
+ 
+}
+
+

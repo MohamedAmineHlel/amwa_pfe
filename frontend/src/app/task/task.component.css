@@ -1,0 +1,521 @@
+.container {
+    max-width: 1000px;
+    margin: 60px auto;
+    padding: 30px;
+    font-size: 13px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    background-color: #f9f9f9;
+}
+
+.title, .form-title {
+    font-size: 15px;
+    color: #333;
+    margin-bottom: 20px;
+    font-weight: 600;
+}
+
+.task-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 30px;
+}
+
+.task-table th, .task-table td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.task-table th {
+    background-color: #f4f4f4;
+    color: #555;
+}
+
+.task-table tbody tr:hover {
+    background-color: #f1f1f1;
+}
+
+.task-form {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    font-size: 12px;
+    color: #555;
+    display: block;
+    margin-bottom: 8px;
+}
+
+.form-control {
+    width: 100%;
+    padding: 10px;
+    font-size: 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box;
+    background-color: #f9f9f9;
+}
+
+.form-control:focus {
+    outline: none;
+    border-color: #5fa8d3;
+}
+.container h2 {
+    font-size: 25px;
+    margin-bottom: 10px;
+    color: #343a40;
+    text-align: center;
+}
+.submit-btn {
+    padding: 12px 20px;
+    background-color: #4CAF50;
+    color: #fff;
+    font-size: 13px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 100%;
+}
+
+.submit-btn:hover {
+    background-color: #45a049;
+    transform: scale(1.02);
+
+}
+
+.alert {
+    padding: 15px;
+    border-radius: 4px;
+    margin-top: 20px;
+    font-size: 13px;
+}
+
+.alert-success {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+.alert-danger {
+    background-color: #f8d7da;
+    color: #721c24;
+}
+.toggle-btn {
+    padding: 12px 20px;
+    font-size: 13px;
+    font-weight: bold;
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.2s ease;
+    margin-bottom: 5px;
+    display: inline-block;
+    width: auto;
+}
+
+.toggle-btn:hover {
+    background-color: #0056b3;
+    transform: scale(1.05);
+}
+
+.toggle-btn:active {
+    background-color: #004080;
+    transform: scale(0.95);
+}
+.expired-task {
+    color: red;
+    font-weight: bold;
+  }
+
+  .update-btn {
+    padding: 10px 16px;
+    font-size: 12px;
+    font-weight: bold;
+    color: #fff;
+    background-color: #f0ad4e; /* Orange color */
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.update-btn:hover {
+    background-color: #ec971f;
+    transform: scale(1.05);
+}
+
+.update-btn:active {
+    background-color: #d58512;
+    transform: scale(0.95);
+}
+
+.cancel-btn {
+    padding: 12px 20px;
+    background-color: #c9302c;
+    color: #fff;
+    font-size: 13px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 100%;
+}
+
+.cancel-btn:hover {
+    background-color: #c9302c;
+    transform: scale(1.02);
+}
+
+.cancel-btn:active {
+    background-color: #ac2925;
+    transform: scale(0.95);
+}
+/* Styling the container and task columns */
+.task-columns {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    margin-top: 20px;
+  }
+  
+  .task-column {
+    width: 30%;
+    padding: 10px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+  
+  .task-column h3 {
+    text-align: center;
+    color: #333;
+    font-size: 16px;
+    margin-bottom: 15px;
+  }
+  
+  /* Styling each task card */
+  .task-card {
+    background-color: #fff;
+    padding: 15px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    width: 100%; /* Ensure it takes full width of the column */
+    min-height: 80px; /* Adjust this value based on your content */
+    
+  }
+  
+  .task-card h4 {
+    color: #333;
+    font-size: 16px;
+    margin-bottom: 10px;
+  }
+  
+  .task-card p {
+    color: #555;
+    font-size: 12px;
+    margin-bottom: 10px;
+  }
+  
+  .task-card button {
+    padding: 8px 14px;
+    background-color: #4CAF50;
+    color: #fff;
+    font-size: 12px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 100%;
+  }
+  
+  .task-card button:hover {
+    background-color: #45a049;
+    transform: scale(1.05);
+  }
+  
+  .task-card button:active {
+    background-color: #388e3c;
+    transform: scale(0.95);
+  }
+  .show-more-btn {
+    padding: 10px 16px;
+    font-size: 12px;
+    font-weight: bold;
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.2s ease;
+    width: 100%;
+    margin-top: 10px;
+  }
+  
+  .show-more-btn:hover {
+    background-color: #0056b3;
+    transform: scale(1.05);
+  }
+  
+  .show-more-btn:active {
+    background-color: #004080;
+    transform: scale(0.95);
+  }
+  .modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal {
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  width: 300px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-control {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.submit-btn, .cancel-btn {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.submit-btn {
+  background-color: #28a745;
+  color: white;
+  margin-right: 10px;
+}
+
+.cancel-btn {
+  background-color: #dc3545;
+  color: white;
+}
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal {
+  background-color: #fff;
+  padding: 25px;
+  border-radius: 12px;
+  width: 400px;
+  max-height: 80vh;
+  overflow-y: auto;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+.modal h3 {
+  font-size: 20px;
+  color: #333;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.modal p {
+  font-size: 14px;
+  color: #555;
+  margin-bottom: 15px;
+}
+
+.modal p strong {
+  color: #333;
+}
+
+.modal .cancel-btn {
+  width: 100%;
+  padding: 10px;
+  background-color: #dc3545;
+  color: #fff;
+  font-size: 14px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.modal .cancel-btn:hover {
+  background-color: #c9302c;
+  transform: scale(1.02);
+}
+
+.modal .cancel-btn:active {
+  background-color: #ac2925;
+  transform: scale(0.95);
+}
+
+/* Existing modal styles remain unchanged */
+
+/* Specific styles for the create task modal */
+.create-task-modal {
+  width: 600px; /* Wider than the task details modal */
+  padding: 30px;
+}
+
+.create-task-modal .form-title {
+  font-size: 20px;
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+.create-task-modal .task-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.create-task-modal .form-group label {
+  font-size: 14px;
+  font-weight: 600;
+  color: #333;
+}
+
+.create-task-modal .form-control {
+  font-size: 14px;
+  padding: 12px;
+  border-radius: 6px;
+}
+
+.create-task-modal .form-control:focus {
+  border-color: #4CAF50;
+  box-shadow: 0 0 5px rgba(76, 175, 80, 0.3);
+}
+
+.create-task-modal .form-buttons {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.create-task-modal .submit-btn,
+.create-task-modal .cancel-btn {
+  width: 50%;
+  padding: 12px;
+  font-size: 14px;
+  border-radius: 6px;
+}
+
+.create-task-modal .submit-btn {
+  background-color: #4CAF50;
+}
+
+.create-task-modal .submit-btn:hover {
+  background-color: #45a049;
+}
+
+.create-task-modal .cancel-btn {
+  background-color: #dc3545;
+}
+
+.create-task-modal .cancel-btn:hover {
+  background-color: #c9302c;
+}
+
+.create-task-modal .alert {
+  margin-top: 15px;
+  font-size: 14px;
+}
+
+/* Existing styles remain unchanged up to the create-task-modal */
+
+/* Specific styles for the update date modal */
+.update-date-modal {
+  width: 350px; /* Smaller width since it’s a simple form */
+  padding: 25px;
+}
+
+.update-date-modal h3 {
+  font-size: 20px;
+  text-align: center;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.update-date-modal .date-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.update-date-modal .form-group label {
+  font-size: 14px;
+  font-weight: 600;
+  color: #333;
+}
+
+.update-date-modal .form-control {
+  font-size: 14px;
+  padding: 12px;
+  border-radius: 6px;
+}
+
+.update-date-modal .form-control:focus {
+  border-color: #f0ad4e; /* Match the update button color */
+  box-shadow: 0 0 5px rgba(240, 173, 78, 0.3);
+}
+
+.update-date-modal .form-buttons {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.update-date-modal .submit-btn,
+.update-date-modal .cancel-btn {
+  width: 50%;
+  padding: 12px;
+  font-size: 14px;
+  border-radius: 6px;
+}
+
+.update-date-modal .submit-btn {
+  background-color: #f0ad4e; /* Match the update button color */
+}
+
+.update-date-modal .submit-btn:hover {
+  background-color: #ec971f;
+}
+
+.update-date-modal .cancel-btn {
+  background-color: #dc3545;
+}
+
+.update-date-modal .cancel-btn:hover {
+  background-color: #c9302c;
+}

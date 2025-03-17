@@ -1,0 +1,13 @@
+<div class="modal-overlay" (click)="closeModalOnOverlayClick($event)">
+    <div class="modal" (click)="$event.stopPropagation()">
+      <h2>Update Expiry Date</h2>
+      <form (ngSubmit)="onSubmit()">
+        <div class="form-group">
+          <label for="expiryDate">New Expiry Date:</label>
+          <input type="date" id="expiryDate" [(ngModel)]="expiryDate" name="expiryDate" required class="form-control" />
+        </div>
+        <button type="submit" class="submit-btn">Save</button>
+        <button type="button" (click)="closeModal()" class="cancel-btn">Cancel</button>
+      </form>
+    </div>
+  </div>

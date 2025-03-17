@@ -1,0 +1,202 @@
+.container {
+    max-width: 80%;
+    margin: 40px auto;
+    padding: 25px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.container h2 {
+    font-size: 27px;
+    margin-bottom: 30px;
+    color: #343a40;
+    text-align: center;
+}
+table tr:hover {
+    background-color: #dadddf; 
+  }
+
+.reg-button {
+    display: block;
+    margin-bottom: 30px;
+    padding: 12px 25px;
+    font-size: 15px;
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: 100%;
+    text-align: center;
+}
+
+.reg-button:hover {
+    background-color: #0056b3;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+table th,
+table td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+    font-size: 14px;
+    color: #495057;
+}
+
+table th {
+    background-color: #f1f3f5;
+    font-weight: bold;
+    color: #343a40;
+}
+
+.delete-button,
+.update-button {
+    padding: 10px 18px;
+    margin: 5px;
+    font-size: 14px;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.delete-button {
+    background-color: #dc3545;
+}
+
+.update-button {
+    background-color: #007bff;
+}
+
+.delete-button:hover {
+    background-color: #c82333;
+}
+
+.update-button:hover {
+    background-color: #0056b3;
+}
+
+.error-message {
+    color: #dc3545;
+    font-size: 15px;
+    margin: 20px 0;
+    text-align: center;
+    padding: 10px;
+    background-color: #f8d7da;
+    border-radius: 4px;
+}
+/* Scope pagination styles to this component only */
+:host ::ng-deep pagination-controls {
+    display: flex;
+    justify-content: right; /* Center the pagination controls */
+    margin-top: 20px; /* Space above pagination */
+  }
+  
+  :host ::ng-deep pagination-controls .ngx-pagination {
+    display: flex;
+    align-items: center;
+    gap: 8px; /* Space between pagination elements */
+    padding: 0;
+    list-style: none; /* Remove default list styling */
+  }
+  
+  :host ::ng-deep pagination-controls .ngx-pagination li {
+    display: inline-block;
+  }
+  
+  :host ::ng-deep pagination-controls .ngx-pagination a,
+  :host ::ng-deep pagination-controls .ngx-pagination button {
+    padding: 8px 12px;
+    font-size: 14px;
+    color: #495057; /* Match table text color */
+    background-color: #fff;
+    border: 1px solid #ddd; /* Light border */
+    border-radius: 6px; /* Match other button radius */
+    text-decoration: none; /* Remove underline from links */
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
+  }
+  
+  :host ::ng-deep pagination-controls .ngx-pagination .current {
+    background-color: #db8888; /* Active page color matches update-button */
+    color: #fff;
+    border: 1px solid #db8888;
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-weight: bold;
+  }
+  
+  :host ::ng-deep pagination-controls .ngx-pagination a:hover,
+  :host ::ng-deep pagination-controls .ngx-pagination button:hover {
+    background-color: #f1f3f5; /* Light hover effect */
+    color: #343a40;
+    transform: scale(1.05); /* Slight scale on hover */
+  }
+  
+  :host ::ng-deep pagination-controls .ngx-pagination .disabled a,
+  :host ::ng-deep pagination-controls .ngx-pagination .disabled button {
+    color: #999; /* Gray out disabled buttons */
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    cursor: not-allowed;
+    transform: none; /* No scale on disabled */
+  }
+  
+  :host ::ng-deep pagination-controls .ngx-pagination .pagination-previous a::before,
+  :host ::ng-deep pagination-controls .ngx-pagination .pagination-next a::after {
+    content: none; /* Remove default arrows if present */
+  }
+  
+  :host ::ng-deep pagination-controls .ngx-pagination .pagination-previous a,
+  :host ::ng-deep pagination-controls .ngx-pagination .pagination-next a {
+    font-weight: bold;
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 600px) {
+    :host ::ng-deep pagination-controls .ngx-pagination {
+      flex-wrap: wrap; /* Allow wrapping on small screens */
+      gap: 5px;
+    }
+    
+    :host ::ng-deep pagination-controls .ngx-pagination a,
+    :host ::ng-deep pagination-controls .ngx-pagination button,
+    :host ::ng-deep pagination-controls .ngx-pagination .current {
+      padding: 6px 10px; /* Smaller padding on small screens */
+      font-size: 12px;
+    }
+  }
+
+  .search-container {
+    margin: 20px 0;
+  }
+  
+  .search-input {
+    padding: 8px;
+    width: 200px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+
+     /* userslist.component.css */
+.user-image {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+
+}
+
+table td img {
+  vertical-align: middle;
+}
+
+/* Rest of your existing styles */

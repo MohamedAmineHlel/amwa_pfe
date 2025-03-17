@@ -1,0 +1,298 @@
+.container {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+    
+
+  }
+  .card {
+    background-color: #fff;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    background-color: #f9f9f9;
+    padding: 30px;
+    margin: 20px auto;
+    width: 95%;
+  }
+  
+  
+  .delete-btn {
+    padding: 8px 12px;
+    font-size: 12px;
+    color: white;
+    background-color: #dc3545;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+.view-btn {
+  padding: 8px 12px;
+  font-size: 12px;
+  color: white;
+  background-color: #62d367;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+.view-btn:hover {
+  background-color: #2fc036;}
+.task-btn{
+  padding: 8px 12px;
+  font-size: 12px;
+  color: white;
+  background-color: #62a9d3;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+.task-btn:hover {
+  background-color: #62a9d3;}
+.delete-btn:hover {
+    background-color: #c82333;
+}
+.left-side {
+  flex: 0 0 50%; /* Left section (form) takes up 70% of the container */
+  padding-right: 20px;
+}
+
+.right-side {
+  flex: 0 0 50%; /* Right section (list of teams) takes up 35% */
+  padding-left: 20px;
+  border-left: 2px solid #ccc;
+}
+
+/* Add full-width for non-admin users */
+.full-width {
+  flex: 0 0 100%; /* When not admin, the right-side takes full width */
+  border-left: none; /* Remove border when full-width */
+}
+.right-side.full-width table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.right-side.full-width th,
+.right-side.full-width td {
+  padding: 15px 20px;
+  text-align: left;
+  font-size: 13px;
+  color: #495057;
+  border-bottom: 1px solid #ddd;
+}
+
+.right-side.full-width th {
+  background-color: #f1f3f5;
+  font-weight: bold;
+  color: #343a40;
+  text-transform: uppercase;
+}
+
+.right-side.full-width td {
+  background-color: #fff;
+  color: #5a5a5a;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.right-side.full-width tr:hover {
+  background-color: #f8f9fa;
+  transform: translateY(-2px);
+}
+
+.right-side.full-width tr:nth-child(even) td {
+  background-color: #f9f9f9;
+}
+
+.right-side.full-width button {
+  padding: 8px 12px;
+  font-size: 12px;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.right-side.full-width .view-btn {
+  background-color: #62d367;
+}
+
+.right-side.full-width .view-btn:hover {
+  background-color: #2fc036;
+  transform: scale(1.05);
+}
+
+.right-side.full-width .delete-btn {
+  background-color: #dc3545;
+}
+
+.right-side.full-width .delete-btn:hover {
+  background-color: #c82333;
+  transform: scale(1.05);
+}
+
+.right-side.full-width td button {
+  margin: 5px;
+}
+  
+  .right-side ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .right-side li {
+    margin: 10px 0;
+  }
+  
+  .container h2 {
+    font-size: 25px;
+    margin-bottom: 30px;
+    color: #343a40;
+    text-align: center;
+}
+  
+  .form-group {
+    margin-bottom: 20px;
+  }
+  
+  .form-group label {
+    display: block;
+    font-weight: bold;
+  }
+  
+  .form-group input {
+    width: 100%;
+    padding: 13px;
+    font-size: 13px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  /* Custom Select Dropdown */
+.custom-select {
+  width: 100%;
+  padding: 12px;
+  font-size: 13px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #fff;
+  cursor: pointer;
+  appearance: none; /* Removes default dropdown arrow */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  transition: border-color 0.3s ease;
+}
+
+/* Add a custom arrow for the select */
+.custom-select {
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="gray"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>');
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 16px;
+}
+
+/* Hover & Focus */
+.custom-select:hover,
+.custom-select:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+/* Disabled Option */
+.custom-select option:disabled {
+  color: #999;
+}
+
+/* Style for form container */
+.form-group {
+  margin-bottom: 20px;
+}
+
+/* Style the button */
+button {
+  display: block;
+  width: 100%;
+  padding: 12px;
+  font-size: 14px;
+  color: #fff;
+  background-color: #007bff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+  
+  .error-message {
+    color: #dc3545;
+    font-size: 15px;
+    margin: 10px;
+    text-align: center;
+  }
+  table {
+    width: 110%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+table th,
+table td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+    font-size: 13px;
+    color: #495057;
+}
+
+table th {
+    background-color: #f1f3f5;
+    font-weight: bold;
+    color: #343a40;
+}
+table tr:hover {
+    background-color: #f8f9fa; /* Light gray color */
+}
+.orange {
+  background-color:#ebc360;
+  
+}
+.orange:hover {
+  background-color:#a77d1c;
+  
+}
+
+.grey {
+  background-color:#5a92e6;
+  
+}
+.grey:hover {
+  background-color:#3273d3;
+  
+}
+
+.inline {
+  white-space: nowrap; /* Prevents buttons from wrapping to the next line */
+}
+
+.inline button {
+  display: inline-block;
+  margin-right: 10px; /* Adds spacing between buttons */
+  width: 32%;
+
+}
+
+/* Remove margin-right from the last button to avoid extra space */
+.inline button:last-child {
+  margin-right: 0;
+}

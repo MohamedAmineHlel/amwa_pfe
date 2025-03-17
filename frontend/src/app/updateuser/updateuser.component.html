@@ -1,0 +1,43 @@
+<div class="container">
+        <p *ngIf="errorMessage" class="error-message">{{errorMessage}}</p>
+        <h2>Update User</h2>
+            <!-- Image upload form -->
+        <form (ngSubmit)="uploadImage()">
+            <label for="image">Profile Image:</label>
+            <input type="file" id="image" (change)="onImageSelected($event)" />
+
+            <button type="submit">Upload Image</button>
+        </form>
+        <form (ngSubmit)="updateUser()">
+            <div class="form-group">
+                <label for="name">Name: </label>
+                <input type="text" id="name" name="name" [(ngModel)]="userData.name">
+            </div>
+            <div class="form-group">
+                <label for="email">Email: </label>
+                <input type="email" id="email" name="email" [(ngModel)]="userData.email">
+            </div>
+            <div class="form-group" *ngIf="isAdmin">
+                <label for="role">Role:</label>
+                <select id="role" name="role" [(ngModel)]="userData.role" required>
+                    <option value="">Select Role</option>
+                    <option value="ADMIN">ADMIN</option>
+                    <option value="USER">USER</option>
+                    <option value="OPERATOR">OPERATOR</option>
+                    <option value="SUPERVISOR">SUPERVISOR</option>
+                    <option value="MANAGER">MANAGER</option>
+                    <option value="SUPERMANAGER">SUPERMANAGER</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="password">Password: </label>
+                <input type="password" id="password" name="password" [(ngModel)]="userData.password">
+            </div>
+            <div class="form-group" hidden>
+                <label for="city">City: </label>
+                <input type="text" id="city" name="city" [(ngModel)]="userData.city">
+            </div>
+            <button type="submit">Update</button>
+        </form>
+    </div>
+    

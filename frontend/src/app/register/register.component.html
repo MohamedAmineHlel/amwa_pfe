@@ -1,0 +1,68 @@
+<div class="card">
+  <div class="card-header">
+    <h2>Add New Member</h2>
+  </div>
+  <div class="card-body">
+    <p *ngIf="errorMessage" class="error-message">{{ errorMessage }}</p>
+    <form (submit)="handleSubmit()" class="profile-form">
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input 
+          id="name" 
+          type="text" 
+          name="name" 
+          [(ngModel)]="formData.name" 
+          required 
+          placeholder="Enter full name" 
+          class="form-input" 
+        />
+      </div>
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input 
+          id="email" 
+          type="email" 
+          name="email" 
+          [(ngModel)]="formData.email" 
+          required 
+          placeholder="Enter email address" 
+          class="form-input" 
+        />
+      </div>
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input 
+          id="password" 
+          type="password" 
+          name="password" 
+          [(ngModel)]="formData.password" 
+          required 
+          placeholder="Create a strong password" 
+          class="form-input" 
+        />
+      </div>
+      <div class="form-group">
+        <label for="role">Role</label>
+        <select 
+          id="role" 
+          name="role" 
+          [(ngModel)]="formData.role" 
+          required 
+          class="form-select"
+        >
+          <option value="" disabled selected>Select a role</option>
+          <option value="ADMIN">Admin</option>
+          <option value="USER">User</option>
+          <option value="OPERATOR">Operator</option>
+          <option value="SUPERVISOR">Supervisor</option>
+          <option value="MANAGER">Manager</option>
+          <option value="SUPERMANAGER">Super Manager</option>
+        </select>
+      </div>
+      
+      <button type="submit" class="submit-btn" [disabled]="!formData.name || !formData.email || !formData.password || !formData.role">
+        Register Member
+      </button>
+    </form>
+  </div>
+</div>

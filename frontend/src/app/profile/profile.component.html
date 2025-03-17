@@ -1,0 +1,15 @@
+<div class="container">
+    <div class="profile-container">
+        <div class="profile-card">
+            <div class="profile-header">
+                <div class="avatar">{{ profileInfo?.ourUsers?.name?.charAt(0).toUpperCase() || 'U' }}</div>
+                <h2>{{ profileInfo?.ourUsers?.name || 'User' }}</h2>
+                <p class="email">{{ profileInfo?.ourUsers?.email || 'Email not available' }}</p>
+            </div>
+            <div class="profile-body">
+                <p><strong>Role:</strong> {{ profileInfo?.ourUsers?.role || 'Not Assigned' }}</p>
+            </div>
+            <button (click)="updateProfile(profileInfo?.ourUsers?.id)">Update Profile</button>
+        </div>
+    </div>
+</div>

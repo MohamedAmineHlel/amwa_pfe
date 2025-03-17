@@ -1,0 +1,20 @@
+<div class="modal-overlay"(click)="closeModalOnOverlayClick($event)">
+    <div class="modal" (click)="$event.stopPropagation()">
+      <h2>{{ teamName }} Tasks</h2>
+      <div class="tasks-list">
+        <div *ngFor="let task of tasks" class="task-item">
+          <h3>{{ task.taskName }}</h3>
+          <p><strong>Status:</strong> {{ task.status }}</p>
+          <p><strong>Due:</strong> {{ task.expiryDate }}</p>
+          <p><strong>Priority:</strong> {{ task.priority }}</p>
+
+          
+        </div>
+      </div>
+      <div class="empty-message" *ngIf="!tasks || tasks.length === 0">
+        <p>This task is empty. There are no tasks to display.</p>
+      </div>
+      <button class="close-btn" (click)="closeModal()">Close</button>
+    </div>
+  </div>
+  

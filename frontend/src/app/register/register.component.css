@@ -1,0 +1,131 @@
+/* Container for centering the card */
+.container {
+  max-width: 600px;
+  margin: 40px auto;
+  padding: 0;
+}
+
+/* Card Styling */
+.card {
+  max-width: 600px;
+  max-height: 610px;
+
+  margin: 60px auto;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.15);
+}
+
+/* Header Styling */
+.card-header {
+  text-align: center;
+  padding: 20px;
+  background: linear-gradient(135deg, #4a90e2, #d33232);
+  color: #ffffff;
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Body Styling */
+.card-body {
+  padding: 30px;
+  background: #f9fafb;
+}
+
+/* Form Styling */
+.profile-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.form-group label {
+  font-size: 14px;
+  font-weight: 600;
+  color: #333;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Input and Select Styling */
+.form-input,
+.form-select {
+  width: 100%;
+  padding: 12px 16px;
+  font-size: 16px;
+  color: #444;
+  background: #ffffff;
+  border: 1px solid #dcdcdc;
+  border-radius: 8px;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.form-input:focus,
+.form-select:focus {
+  outline: none;
+  border-color: #4a90e2;
+  box-shadow: 0 0 8px rgba(74, 144, 226, 0.3);
+}
+
+.form-input::placeholder {
+  color: #999;
+  font-style: italic;
+}
+
+.form-select {
+  appearance: none;
+  background: #ffffff url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="grey" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5H7z"/></svg>') no-repeat;
+  background-position: right 12px center;
+}
+
+/* Button Styling */
+.submit-btn {
+  width: 100%;
+  padding: 14px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #ffffff;
+  background: linear-gradient(135deg, #4a90e2, #357abd);
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.submit-btn:hover {
+  background: linear-gradient(135deg, #357abd, #2a6395);
+  transform: translateY(-2px);
+}
+
+.submit-btn:disabled {
+  background: #cccccc;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Error Message Styling */
+.error-message {
+  color: #e63946;
+  font-size: 14px;
+  font-weight: 500;
+  text-align: center;
+  padding: 10px;
+  background: #ffe6e6;
+  border-radius: 6px;
+  margin-bottom: 20px;
+}

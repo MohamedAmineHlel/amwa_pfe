@@ -1,0 +1,17 @@
+<div class="modal-overlay" (click)="closeModalOnOverlayClick($event)">
+  <div class="modal" (click)="$event.stopPropagation()">
+    <h2>{{ teamName }} Members</h2>
+    <div class="members-list">
+      <div *ngFor="let user of users" class="member-item">
+        <h3>{{ user.name }}</h3>
+        <p><strong>Username:</strong> {{ user.username }}</p>
+        <p><strong>Role:</strong> {{ user.role }}</p>
+      </div>
+    </div>
+    <!-- Show empty team message if no members -->
+    <div class="empty-message" *ngIf="!users || users.length === 0">
+      <p>This team is empty. There are no members to display.</p>
+    </div>
+    <button class="close-btn" (click)="closeModal()">Close</button>
+  </div>
+</div>
