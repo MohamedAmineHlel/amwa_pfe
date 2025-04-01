@@ -21,34 +21,17 @@ export class UpdateuserComponent implements OnInit {
     private readonly router: Router,
     private readonly route:ActivatedRoute){}
 
-
+    selectedImage: File | null = null;  // To store the selected image file
     userId: any;
     userData: any = {}
     errorMessage:string = ''
     isAdmin: boolean = false;
-    selectedImage: File | null = null;  // To store the selected image file
+
+
   ngOnInit(): void {
     this.getUserById()
     this.isAdmin = this.userService.isAdmin();  // Check if the user is an admin
 
-  }
-
-  async getUserById(){
-      this.userId = this.route.snapshot.paramMap.get('id')
-      const token = localStorage.getItem('token')
-      if(!this.userId || !token){
-          this.showError("User ID or TOken is Required")
-          return;
-      }
-
-      try {
-        let userDataResponse = await this.userService.getUsersById(this.userId, token)
-        const {name, email, role, city} = userDataResponse.ourUsers
-        this.userData = {name, email, role, city};
-        
-      } catch (error:any) {
-        this.showError(error.message);
-      }
   }
 // Handle image file selection
 onImageSelected(event: any) {
@@ -70,6 +53,23 @@ async uploadImage() {
     this.showError("Error uploading image: " + error.message);
   }
 }
+  async getUserById(){
+      this.userId = this.route.snapshot.paramMap.get('id')
+      const token = localStorage.getItem('token')
+      if(!this.userId || !token){
+          this.showError("User ID or TOken is Required")
+          return;
+      }
+
+      try {
+        let userDataResponse = await this.userService.getUsersById(this.userId, token)
+        const {name, email, role, city} = userDataResponse.ourUsers
+        this.userData = {name, email, role, city};
+        
+      } catch (error:any) {
+        this.showError(error.message);
+      }
+  }
 
   async updateUser(){
     const confitm = confirm("Are you sure you wanna update this user")

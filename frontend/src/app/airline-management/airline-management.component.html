@@ -1,0 +1,128 @@
+<div class="card">
+    <h2 class="section-title">Airline Management</h2>
+  
+    <!-- Error Message -->
+    <p class="error-message" *ngIf="errorMessage">{{ errorMessage }}</p>
+  
+    <!-- Buttons -->
+    <div style="display: flex; gap: 10px;">
+        <button class="submit-btn" (click)="openCreateModal()">Add New Airline</button>
+        <button class="toggle-btn" (click)="openArchivedModal()">Archived Airlines</button>
+    </div><br><br>
+  
+    <!-- Active Airline List as Table -->
+    <div class="management-section airline-list">
+      <h3>Active Airlines</h3>
+      <table class="airline-table">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Abbreviation</th>
+            <th>Description</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let airline of airlines | filter: { archived: false }">
+            <td>{{ airline.name }}</td>
+            <td>{{ airline.abbr }}</td>
+            <td>{{ airline.description }}</td>
+            <td>
+              <button class="action-icon delete-icon" (click)="deleteAirline(airline.id); $event.stopPropagation()" title="Delete">
+                <i class="fas fa-trash"></i>
+              </button>
+              <button class="action-icon archive-icon" (click)="archiveAirline(airline.id); $event.stopPropagation()" title="Archive">
+                <i class="fas fa-archive"></i>
+              </button>
+              <button class="action-icon modify-icon" (click)="selectAirlineForUpdate(airline.id); $event.stopPropagation()" title="Modify">
+                <i class="fas fa-edit"></i>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  
+    <!-- Create Airline Modal -->
+    <div class="modal" *ngIf="isCreating">
+      <div class="modal-content management-section">
+        <h3>Create New Airline</h3>
+        <form class="management-form">
+          <div class="form-group">
+            <label>Airline Name</label>
+            <input class="form-input" type="text" [(ngModel)]="newAirline.nameAirline" name="nameAirline" required>
+          </div>
+          <div class="form-group">
+            <label>Description</label>
+            <input class="form-input" type="text" [(ngModel)]="newAirline.descriptionAirline" name="descriptionAirline">
+          </div>
+          <div class="form-group">
+            <label>Abbreviation</label>
+            <input class="form-input" type="text" [(ngModel)]="newAirline.abbrAirline" name="abbrAirline">
+          </div>
+          <div class="modal-actions">
+            <button class="submit-btn" type="button" (click)="createAirline()">Create</button>
+            <button class="toggle-btn" type="button" (click)="cancelCreate()">Cancel</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  
+    <!-- Update Airline Modal -->
+    <div class="modal" *ngIf="isModifying">
+      <div class="modal-content management-section">
+        <h3>Modify Airline</h3>
+        <form class="management-form">
+          <div class="form-group">
+            <label>Airline Name</label>
+            <input class="form-input" type="text" [(ngModel)]="updateAirlineData.name" name="name" required>
+          </div>
+          <div class="form-group">
+            <label>Description</label>
+            <input class="form-input" type="text" [(ngModel)]="updateAirlineData.description" name="description">
+          </div>
+          <div class="form-group">
+            <label>Abbreviation</label>
+            <input class="form-input" type="text" [(ngModel)]="updateAirlineData.abbr" name="abbr">
+          </div>
+          <div class="modal-actions">
+            <button class="submit-btn" type="button" (click)="updateAirline(selectedAirlineId)">Update</button>
+            <button class="toggle-btn" type="button" (click)="cancelUpdate()">Cancel</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Archived Airlines Modal -->
+    <div class="modal" *ngIf="isViewingArchived">
+      <div class="modal-content management-section">
+        <h3>Archived Airlines</h3>
+        <table class="airline-table">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Abbreviation</th>
+              <th>Description</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let airline of airlines | filter: { archived: true }">
+              <td>{{ airline.name }}</td>
+              <td>{{ airline.abbr }}</td>
+              <td>{{ airline.description }}</td>
+              <td>
+                <button class="action-icon unarchive-icon" (click)="unarchiveAirline(airline.id); $event.stopPropagation()" title="Unarchive">
+                  <i class="fas fa-box-open"></i>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <br>
+        <div class="modal-actions">
+          <button class="toggle-btn" type="button" (click)="closeArchivedModal()">Close</button>
+        </div>
+      </div>
+    </div>
+</div>

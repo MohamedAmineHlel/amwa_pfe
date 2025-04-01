@@ -17,6 +17,10 @@ public class TeamController {
     public ReqRes createTeam(@RequestBody ReqRes request) {
         return teamService.createTeam(request);
     }
+    @PutMapping("/modify/{teamId}")
+    public ReqRes modifyTeam(@PathVariable Integer teamId, @RequestBody ReqRes request) {
+        return teamService.modifyTeam(teamId, request);
+    }
 
     @PostMapping("/assign")
     public ReqRes assignUserToTeam(@RequestParam Integer userId, @RequestParam Integer teamId) {

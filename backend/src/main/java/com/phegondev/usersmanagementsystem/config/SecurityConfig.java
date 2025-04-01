@@ -33,9 +33,13 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception{
         httpSecurity.csrf(AbstractHttpConfigurer::disable)
                 .cors(Customizer.withDefaults())
-                .authorizeHttpRequests(request-> request.requestMatchers("/auth/**", "/public/**","/teams/**","/admin/**","/tasks/**","/uploads/**").permitAll()
-                        .requestMatchers("/user/**").hasAnyAuthority("ADMIN","USER","OPERATOR","SUPERVISOR","MANAGER","SUPERMANAGER")
+                .authorizeHttpRequests(request-> request.requestMatchers("/auth/**", "/public/**","/teams/**","/admin/**","/tasks/**","/projects/**","/airlines/**","/comments/**","/uploads/**").permitAll()
+                        .requestMatchers("/user/**").hasAnyAuthority("USER","ADMIN","OPERATOR","SUPERVISOR","MANAGER","SUPERMANAGER")
                         .requestMatchers("/adminuser/**").hasAnyAuthority("ADMIN", "USER","OPERATOR","SUPERVISOR","MANAGER","SUPERMANAGER")
+                        // Autorisation spécifique pour les utilisateurs normaux (USER, OPERATOR, SUPERVISOR...)
+                        .requestMatchers("/leaves/create", "/leaves/user", "/leaves/search", "/leaves/role-based-leaves", "/leaves/status/**")
+                        .hasAnyAuthority("ADMIN", "USER", "OPERATOR", "SUPERVISOR", "MANAGER", "SUPERMANAGER")
+                        .requestMatchers("/leaves/**").hasAnyAuthority("ADMIN", "MANAGER", "SUPERMANAGER")
                         .anyRequest().authenticated())
                 .sessionManagement(manager->manager.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authenticationProvider(authenticationProvider()).addFilterBefore(

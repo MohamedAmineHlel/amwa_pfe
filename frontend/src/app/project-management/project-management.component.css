@@ -1,0 +1,315 @@
+/* Card Container */
+.card {
+    background-color: #ffffff;
+    border-radius: 16px;
+    border: none;
+    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.08);
+    padding: 40px;
+    margin: 30px auto;
+    width: 95%;
+    max-width: 1200px;
+    background: linear-gradient(135deg, #f5f7fa, #e0e7ff);
+  }
+  
+  /* Section Titles */
+  .section-title {
+    font-size: 26px;
+    color: #1e293b;
+    margin-bottom: 30px;
+    font-weight: 700;
+    text-align: left;
+    border-bottom: 2px solid #3b82f6;
+    padding-bottom: 12px;
+  }
+  
+  /* Management Sections */
+  .management-section {
+    background-color: #ffffff;
+    border-radius: 12px;
+    padding: 25px;
+    margin-bottom: 30px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+  }
+  
+  .management-section:hover {
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  }
+  
+  .management-section h3 {
+    font-size: 18px;
+    color: #1e293b;
+    margin-bottom: 20px;
+    font-weight: 600;
+  }
+  
+  /* Form Styling */
+  .management-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  
+  .form-group label {
+    font-size: 14px;
+    color: #1e293b;
+    font-weight: 600;
+  }
+  
+  .form-input {
+    width: 100%;
+    padding: 12px 15px;
+    font-size: 14px;
+    color: #1e293b;
+    background-color: #f9fafb;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .form-input:focus {
+    border-color: #3b82f6;
+    box-shadow: 0 0 6px rgba(59, 130, 246, 0.3);
+    outline: none;
+  }
+  
+  /* Buttons */
+  .submit-btn {
+    padding: 12px;
+    font-size: 14px;
+    color: #ffffff;
+    background-color: #3b82f6;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 500;
+    text-transform: uppercase;
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+  }
+  
+  .submit-btn:hover {
+    background-color: #2563eb;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+  }
+  
+  .submit-btn:active {
+    background-color: #1d4ed8;
+    transform: translateY(0);
+  }
+  
+  .toggle-btn {
+    padding: 12px;
+    font-size: 14px;
+    color: #ffffff;
+    background-color: #6b7280;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 500;
+    text-transform: uppercase;
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+  }
+  
+  .toggle-btn:hover {
+    background-color: #4b5563;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(107, 114, 128, 0.3);
+  }
+  
+  .toggle-btn:active {
+    background-color: #374151;
+    transform: translateY(0);
+  }
+  
+  /* Error Message */
+  .error-message {
+    color: #dc2626;
+    font-size: 14px;
+    margin: 15px 0;
+    text-align: center;
+    padding: 10px;
+    background-color: #fee2e2;
+    border-radius: 6px;
+    font-weight: 500;
+  }
+  
+  /* Project Table */
+  .project-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .project-table th,
+  .project-table td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid #e5e7eb;
+  }
+  
+  .project-table th {
+    background-color: #f9fafb;
+    font-size: 14px;
+    color: #1e293b;
+    font-weight: 600;
+    text-transform: uppercase;
+  }
+  
+  .project-table tr:hover {
+    background-color: #f9fafb;
+  }
+  
+  .project-table td {
+    font-size: 14px;
+    color: #1e293b;
+  }
+  
+  /* Action Icons */
+  .action-icon {
+    color: #ffffff;
+    border: none;
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    margin-right: 8px;
+  }
+  
+  .action-icon:hover {
+    transform: scale(1.1);
+  }
+  
+  /* Specific Button Colors */
+  .delete-icon {
+    background-color: #e74c3c; /* Red for delete */
+  }
+  
+  .delete-icon:hover {
+    background-color: #c0392b;
+  }
+  
+  .archive-icon {
+    background-color: #f39c12; /* Orange for archive */
+  }
+  
+  .archive-icon:hover {
+    background-color: #e67e22;
+  }
+  
+  .unarchive-icon {
+    background-color: #2ecc71; /* Green for unarchive */
+  }
+  
+  .unarchive-icon:hover {
+    background-color: #27ae60;
+  }
+  
+  .modify-icon {
+    background-color: #3498db; /* Blue for modify */
+  }
+  
+  .modify-icon:hover {
+    background-color: #2980b9;
+  }
+  
+  /* Modal Styles */
+  .modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
+  
+  .modal-content {
+    width: 90%;
+    max-width: 500px;
+    position: relative;
+  }
+  
+  .modal-actions {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+  }
+  
+  /* Responsive Adjustments */
+  @media (max-width: 768px) {
+    .card {
+      padding: 30px;
+    }
+  
+    .management-section {
+      padding: 20px;
+    }
+  
+    .modal-content {
+      width: 95%;
+    }
+  
+    .project-table th,
+    .project-table td {
+      padding: 10px;
+    }
+  
+    .action-icon {
+      width: 28px;
+      height: 28px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .card {
+      padding: 20px;
+      margin: 15px auto;
+    }
+  
+    .section-title {
+      font-size: 22px;
+    }
+  
+    .management-section h3 {
+      font-size: 16px;
+    }
+  
+    .form-input {
+      font-size: 13px;
+      padding: 10px 12px;
+    }
+  
+    .submit-btn,
+    .toggle-btn {
+      font-size: 13px;
+      padding: 10px;
+    }
+  
+    .project-table {
+      font-size: 12px;
+    }
+  
+    .project-table th,
+    .project-table td {
+      padding: 8px;
+    }
+  
+    .action-icon {
+      width: 24px;
+      height: 24px;
+      margin-right: 5px;
+    }
+  }

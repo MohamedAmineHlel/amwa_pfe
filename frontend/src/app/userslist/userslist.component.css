@@ -1,202 +1,348 @@
+/* Container Styling */
 .container {
-    max-width: 80%;
-    margin: 40px auto;
-    padding: 25px;
-    background-color: #f9f9f9;
-    border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  max-width: 90%;
+  margin: 50px auto;
+  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+  background: linear-gradient(135deg, #fef2f2, #fee2e2); /* Soft red gradient */
+  min-height: 70vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
 }
 
-.container h2 {
-    font-size: 27px;
-    margin-bottom: 30px;
-    color: #343a40;
-    text-align: center;
-}
-table tr:hover {
-    background-color: #dadddf; 
-  }
-
-.reg-button {
-    display: block;
-    margin-bottom: 30px;
-    padding: 12px 25px;
-    font-size: 15px;
-    color: #fff;
-    background-color: #007bff;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    width: 100%;
-    text-align: center;
+/* Dashboard Card Styling */
+.dashboard-card {
+  width: 100%;
+  max-width: 1200px;
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  animation: slideUp 0.6s ease-in-out;
 }
 
-.reg-button:hover {
-    background-color: #0056b3;
+/* Header Styling */
+.card-header {
+  padding: 20px 30px;
+  color: #000000;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.3);
+}
+
+.section-title {
+  font-size: 26px;
+  font-weight: 700;
+  margin: 0;
+}
+
+.add-user-btn {
+  padding: 10px 20px;
+  font-size: 14px;
+  color: #ffffff;
+  background-color: #ef4444;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+}
+
+.add-user-btn:hover {
+  background-color: #dc2626;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
+}
+
+.add-user-btn:active {
+  background-color: #b91c1c;
+  transform: translateY(0);
+}
+
+/* Body Styling */
+.card-body {
+  padding: 30px;
+}
+
+/* Search Container */
+.search-container {
+  margin-bottom: 20px;
+  position: relative;
+  max-width: 300px;
+}
+
+.search-input {
+  width: 100%;
+  padding: 10px 12px 10px 40px;
+  font-size: 14px;
+  color: #1e293b;
+  background: #ffffff;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: #ef4444;
+  box-shadow: 0 0 6px rgba(239, 68, 68, 0.2);
+}
+
+.search-icon {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #6b7280;
+  font-size: 16px;
+}
+
+/* Table Wrapper */
+.table-wrapper {
+  overflow-x: auto;
 }
 
 table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-bottom: 20px;
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+  background: #ffffff;
+  border-radius: 8px;
+  overflow: hidden;
 }
 
 table th,
 table td {
-    padding: 12px 15px;
-    text-align: left;
-    border-bottom: 1px solid #ddd;
-    font-size: 14px;
-    color: #495057;
+  padding: 12px 15px;
+  text-align: left;
+  border-bottom: 1px solid #e5e7eb;
+  font-size: 14px;
+  color: #1e293b;
 }
 
 table th {
-    background-color: #f1f3f5;
-    font-weight: bold;
-    color: #343a40;
+  background-color: #f9fafb;
+  font-weight: 600;
+  color: #1e293b;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
-.delete-button,
-.update-button {
-    padding: 10px 18px;
-    margin: 5px;
-    font-size: 14px;
-    color: #fff;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+table tr:hover {
+  background-color: #fef2f2;
 }
 
-.delete-button {
-    background-color: #dc3545;
+.action-btn {
+  padding: 8px;
+  margin: 0 5px;
+  font-size: 14px;
+  color: #ffffff;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
 }
 
-.update-button {
-    background-color: #007bff;
+.delete-btn {
+  background-color: #dc2626;
 }
 
-.delete-button:hover {
-    background-color: #c82333;
+.update-btn {
+  background-color: #3cb460;
 }
 
-.update-button:hover {
-    background-color: #0056b3;
+.delete-btn:hover {
+  background-color: #b91c1c;
+  transform: scale(1.1);
 }
 
+.update-btn:hover {
+  background-color: #1f7c3b;
+  transform: scale(1.1);
+}
+
+.action-btn span {
+  font-size: 16px;
+}
+
+/* Error Message Styling */
 .error-message {
-    color: #dc3545;
-    font-size: 15px;
-    margin: 20px 0;
-    text-align: center;
-    padding: 10px;
-    background-color: #f8d7da;
-    border-radius: 4px;
+  color: #dc2626;
+  font-size: 14px;
+  font-weight: 500;
+  text-align: center;
+  padding: 10px;
+  background: #fee2e2;
+  border-radius: 6px;
+  margin-bottom: 20px;
 }
-/* Scope pagination styles to this component only */
-:host ::ng-deep pagination-controls {
-    display: flex;
-    justify-content: right; /* Center the pagination controls */
-    margin-top: 20px; /* Space above pagination */
+
+/* Pagination Controls */
+.pagination-controls {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 20px;
+}
+
+:host ::ng-deep .ngx-pagination {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0;
+  list-style: none;
+}
+
+:host ::ng-deep .ngx-pagination li {
+  display: inline-block;
+}
+
+:host ::ng-deep .ngx-pagination a,
+:host ::ng-deep .ngx-pagination button {
+  padding: 8px 12px;
+  font-size: 14px;
+  color: #1e293b;
+  background-color: #ffffff;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
+}
+
+:host ::ng-deep .ngx-pagination .current {
+  background-color: #ef4444;
+  color: #ffffff;
+  border: 1px solid #ef4444;
+  font-weight: 600;
+}
+
+:host ::ng-deep .ngx-pagination a:hover,
+:host ::ng-deep .ngx-pagination button:hover {
+  background-color: #fef2f2;
+  color: #dc2626;
+  transform: scale(1.05);
+}
+
+:host ::ng-deep .ngx-pagination .disabled a,
+:host ::ng-deep .ngx-pagination .disabled button {
+  color: #9ca3af;
+  background-color: #f9fafb;
+  border: 1px solid #d1d5db;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Animation */
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .container {
+      margin: 30px auto;
+      padding: 15px;
   }
-  
-  :host ::ng-deep pagination-controls .ngx-pagination {
-    display: flex;
-    align-items: center;
-    gap: 8px; /* Space between pagination elements */
-    padding: 0;
-    list-style: none; /* Remove default list styling */
+
+  .card-header {
+      padding: 15px 20px;
+      flex-direction: column;
+      gap: 10px;
   }
-  
-  :host ::ng-deep pagination-controls .ngx-pagination li {
-    display: inline-block;
+
+  .section-title {
+      font-size: 22px;
   }
-  
-  :host ::ng-deep pagination-controls .ngx-pagination a,
-  :host ::ng-deep pagination-controls .ngx-pagination button {
-    padding: 8px 12px;
-    font-size: 14px;
-    color: #495057; /* Match table text color */
-    background-color: #fff;
-    border: 1px solid #ddd; /* Light border */
-    border-radius: 6px; /* Match other button radius */
-    text-decoration: none; /* Remove underline from links */
-    cursor: pointer;
-    transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
-  }
-  
-  :host ::ng-deep pagination-controls .ngx-pagination .current {
-    background-color: #db8888; /* Active page color matches update-button */
-    color: #fff;
-    border: 1px solid #db8888;
-    padding: 8px 12px;
-    border-radius: 6px;
-    font-weight: bold;
-  }
-  
-  :host ::ng-deep pagination-controls .ngx-pagination a:hover,
-  :host ::ng-deep pagination-controls .ngx-pagination button:hover {
-    background-color: #f1f3f5; /* Light hover effect */
-    color: #343a40;
-    transform: scale(1.05); /* Slight scale on hover */
-  }
-  
-  :host ::ng-deep pagination-controls .ngx-pagination .disabled a,
-  :host ::ng-deep pagination-controls .ngx-pagination .disabled button {
-    color: #999; /* Gray out disabled buttons */
-    background-color: #f9f9f9;
-    border: 1px solid #ddd;
-    cursor: not-allowed;
-    transform: none; /* No scale on disabled */
-  }
-  
-  :host ::ng-deep pagination-controls .ngx-pagination .pagination-previous a::before,
-  :host ::ng-deep pagination-controls .ngx-pagination .pagination-next a::after {
-    content: none; /* Remove default arrows if present */
-  }
-  
-  :host ::ng-deep pagination-controls .ngx-pagination .pagination-previous a,
-  :host ::ng-deep pagination-controls .ngx-pagination .pagination-next a {
-    font-weight: bold;
-  }
-  
-  /* Responsive adjustments */
-  @media (max-width: 600px) {
-    :host ::ng-deep pagination-controls .ngx-pagination {
-      flex-wrap: wrap; /* Allow wrapping on small screens */
-      gap: 5px;
-    }
-    
-    :host ::ng-deep pagination-controls .ngx-pagination a,
-    :host ::ng-deep pagination-controls .ngx-pagination button,
-    :host ::ng-deep pagination-controls .ngx-pagination .current {
-      padding: 6px 10px; /* Smaller padding on small screens */
-      font-size: 12px;
-    }
+
+  .card-body {
+      padding: 25px;
   }
 
   .search-container {
-    margin: 20px 0;
+      max-width: 100%;
   }
-  
+
   .search-input {
-    padding: 8px;
-    width: 200px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+      padding: 8px 12px 8px 36px;
   }
 
-     /* userslist.component.css */
-.user-image {
-  width: 50px;
-  height: 50px;
-  object-fit: cover;
+  .search-icon {
+      left: 10px;
+      font-size: 14px;
+  }
 
+  table th,
+  table td {
+      font-size: 13px;
+      padding: 10px 12px;
+  }
+
+  .action-btn {
+      width: 32px;
+      height: 32px;
+  }
+
+  .action-btn span {
+      font-size: 14px;
+  }
 }
 
-table td img {
-  vertical-align: middle;
-}
+@media (max-width: 480px) {
+  .container {
+      margin: 20px auto;
+      padding: 10px;
+  }
 
-/* Rest of your existing styles */
+  .card-header {
+      padding: 10px 15px;
+  }
+
+  .section-title {
+      font-size: 20px;
+  }
+
+  .card-body {
+      padding: 20px;
+  }
+
+  .search-input {
+      padding: 6px 12px 6px 30px;
+      font-size: 13px;
+  }
+
+  .search-icon {
+      left: 8px;
+      font-size: 12px;
+  }
+
+  table th,
+  table td {
+      font-size: 12px;
+      padding: 8px 10px;
+  }
+
+  .action-btn {
+      width: 28px;
+      height: 28px;
+  }
+
+  .action-btn span {
+      font-size: 12px;
+  }
+
+  :host ::ng-deep .ngx-pagination a,
+  :host ::ng-deep .ngx-pagination button,
+  :host ::ng-deep .ngx-pagination .current {
+      padding: 6px 10px;
+      font-size: 12px;
+  }
+}

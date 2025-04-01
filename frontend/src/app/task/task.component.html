@@ -1,179 +1,271 @@
 <div class="container">
-  <h2 class="title">Task List</h2>
-  <button (click)="toggleTaskForm()" class="toggle-btn">
-    {{ showTaskForm ? 'Hide Add Task' : 'Add Task' }}
-  </button>
-  <div class="task-columns">
-    <!-- Column for DISPATCHED tasks -->
-    <div class="task-column">
-      <h3>DISPATCHED</h3>
-      <div *ngFor="let task of filterTasksByStatus('DISPATCHED')" class="task-card" (click)="openTaskModal(task)">
-        <h4>{{ task.taskName }}</h4>
-        <p><strong>Team:</strong> {{ task.team?.teamName || task.team }}</p>
-        <p><strong>Assigned To:</strong> {{ task.assignedTo?.name || task.assignedTo }}</p>
-        <p><strong>Expiry Date:</strong> {{ task.expiryDate }}</p>
-<!--
-        <p>{{ task.description }}</p>
-        <p><strong>Created By:</strong> {{ task.createdBy?.name || task.createdBy }}</p>
-        
-        <p><strong>Priority:</strong> {{ task.priority }}</p>
-        -->
-        <button (click)="updateTaskExpiry(task.id, task.expiryDate); $event.stopPropagation()" class="update-btn">Update Date</button>
+  <div class="controls-panel">
+    <h2 class="title">Task Board</h2>
+    <span>
+      <button (click)="toggleTaskForm()" class="action-btn primary-btn">
+        {{ showTaskForm ? 'Hide Add Task' : 'Add Task' }}
+      </button>
+      <div class="right-group2">
+
+      <button class="action-btn calendar-btn" routerLink="/calendar">
+        <span class="calendar-icon fa fa-calendar"></span> Calendar
+      </button>
+      </div></span>
+     <br>
+    <div class="controls-container">
+      <div class="control-group">
+        <label for="searchTaskName" class="control-label">Task Name</label>
+        <input id="searchTaskName" [(ngModel)]="searchTaskName" (input)="applySearchFilter()" 
+               placeholder="Search by name..." class="control-input" />
       </div>
-      <button *ngIf="showMoreDispatchedTasks" (click)="showMoreTasks('DISPATCHED')" class="show-more-btn">Show More</button>
-      <button *ngIf="visibleTasks['DISPATCHED'] > 4" (click)="showLessTasks('DISPATCHED')" class="show-more-btn">Show Less</button>
-    </div>
-
-    <!-- Column for STARTED tasks -->
-    <div class="task-column">
-      <h3>STARTED</h3>
-      <div *ngFor="let task of filterTasksByStatus('STARTED')" class="task-card" (click)="openTaskModal(task)">
-        <h4>{{ task.taskName }}</h4>
-        <p><strong>Team:</strong> {{ task.team?.teamName || task.team }}</p>
-        <p><strong>Assigned To:</strong> {{ task.assignedTo?.name || task.assignedTo }}</p>
-        <p><strong>Expiry Date:</strong> {{ task.expiryDate }}</p>
-<!--
-        <p>{{ task.description }}</p>
-        <p><strong>Created By:</strong> {{ task.createdBy?.name || task.createdBy }}</p>
-        
-        <p><strong>Priority:</strong> {{ task.priority }}</p>
-        -->
-        <button (click)="updateTaskExpiry(task.id, task.expiryDate); $event.stopPropagation()" class="update-btn">Update Date</button>
+      
+      <div class="control-group">
+        <label for="searchUniqueNumber" class="control-label">Task Number</label>
+        <input id="searchUniqueNumber" [(ngModel)]="searchUniqueNumber" (input)="applySearchFilter()" 
+               placeholder="Search by number..." class="control-input" />
       </div>
-      <button *ngIf="showMoreStartedTasks" (click)="showMoreTasks('STARTED')" class="show-more-btn">Show More</button>
-      <button *ngIf="visibleTasks['STARTED'] > 4" (click)="showLessTasks('STARTED')" class="show-more-btn">Show Less</button>
-    </div>
-
-    <!-- Column for ONGOING tasks -->
-    <div class="task-column">
-      <h3>ONGOING</h3>
-      <div *ngFor="let task of filterTasksByStatus('ONGOING')" class="task-card" (click)="openTaskModal(task)">
-        <h4>{{ task.taskName }}</h4>
-        <p><strong>Team:</strong> {{ task.team?.teamName || task.team }}</p>
-        <p><strong>Assigned To:</strong> {{ task.assignedTo?.name || task.assignedTo }}</p>
-        <p><strong>Expiry Date:</strong> {{ task.expiryDate }}</p>
-<!--
-        <p>{{ task.description }}</p>
-        <p><strong>Created By:</strong> {{ task.createdBy?.name || task.createdBy }}</p>
-        
-        <p><strong>Priority:</strong> {{ task.priority }}</p>
-        -->
-        <button (click)="updateTaskExpiry(task.id, task.expiryDate); $event.stopPropagation()" class="update-btn">Update Date</button>
+      
+      <div class="control-group">
+        <label for="teamFilter" class="control-label">Team</label>
+        <select id="teamFilter" [(ngModel)]="selectedTeamFilter" (change)="onTeamFilterChange($event)" 
+                class="control-select">
+          <option [value]="null">All Teams</option>
+          <option *ngFor="let team of teams" [value]="team.id">{{ team.teamName }}</option>
+        </select>
       </div>
-      <button *ngIf="showMoreOngoingTasks" (click)="showMoreTasks('ONGOING')" class="show-more-btn">Show More</button>
-      <button *ngIf="visibleTasks['ONGOING'] > 4" (click)="showLessTasks('ONGOING')" class="show-more-btn">Show Less</button>
-    </div>
-
-    <!-- Column for FINISHED tasks -->
-    <div class="task-column">
-      <h3>FINISHED</h3>
-      <div *ngFor="let task of filterTasksByStatus('FINISHED')" class="task-card" (click)="openTaskModal(task)">
-        <h4>{{ task.taskName }}</h4>
-        <p><strong>Team:</strong> {{ task.team?.teamName || task.team }}</p>
-        <p><strong>Assigned To:</strong> {{ task.assignedTo?.name || task.assignedTo }}</p>
-        <p><strong>Expiry Date:</strong> {{ task.expiryDate }}</p>
-
-        <!--
-        <p>{{ task.description }}</p>
-        <p><strong>Created By:</strong> {{ task.createdBy?.name || task.createdBy }}</p>
-        
-        <p><strong>Priority:</strong> {{ task.priority }}</p>
-        -->
-        <button (click)="updateTaskExpiry(task.id, task.expiryDate); $event.stopPropagation()" class="update-btn">Update Date</button>
+      
+      <div class="control-group">
+        <label for="searchStatus" class="control-label">Status</label>
+        <select id="searchStatus" [(ngModel)]="searchStatus" (change)="applySearchFilter()" 
+                class="control-select">
+          <option value="DISPATCHED">DISPATCHED</option>
+          <option value="STARTED">STARTED</option>
+          <option value="ONGOING">ONGOING</option>
+          <option value="FINISHED">FINISHED</option>
+          <option value="DELAYED">DELAYED</option>
+        </select>
       </div>
-      <button *ngIf="showMoreFinishedTasks" (click)="showMoreTasks('FINISHED')" class="show-more-btn">Show More</button>
-      <button *ngIf="visibleTasks['FINISHED'] > 4" (click)="showLessTasks('FINISHED')" class="show-more-btn">Show Less</button>
-    </div>
-
-    <!-- Column for DELAYED tasks -->
-    <div class="task-column">
-      <h3>DELAYED</h3>
-      <div *ngFor="let task of filterTasksByStatus('DELAYED')" class="task-card" (click)="openTaskModal(task)">
-        <h4>{{ task.taskName }}</h4>
-        <p><strong>Assigned To:</strong> {{ task.assignedTo?.name || task.assignedTo }}</p>
-
-        <p><strong>Team:</strong> {{ task.team?.teamName || task.team }}</p>
-        <p><strong>Expiry Date:</strong> {{ task.expiryDate }}</p>
-
-       <!-- 
-        <p><strong>Created By:</strong> {{ task.createdBy?.name || task.createdBy }}</p>
-        <p>{{ task.description }}</p>
-
-        <p><strong>Priority:</strong> {{ task.priority }}</p>
-        -->
-        <button (click)="updateTaskExpiry(task.id, task.expiryDate); $event.stopPropagation()" class="update-btn">Update Date</button>
+      
+      <div class="button-group">
+       
+        <button (click)="resetFilters()" class="action-btn reset-btn">Reset Filters</button>
       </div>
-      <button *ngIf="showMoreDelayedTasks" (click)="showMoreTasks('DELAYED')" class="show-more-btn">Show More</button>
-      <button *ngIf="visibleTasks['DELAYED'] > 4" (click)="showLessTasks('DELAYED')" class="show-more-btn">Show Less</button>
     </div>
   </div>
 
-  <!-- Expiry Date Update Form 
-  <div *ngIf="showDateForm" class="date-form">
-    <br>
-    <h3>Update Expiry Date</h3>
-    <form (ngSubmit)="saveUpdatedExpiryDate()">
-      <div class="form-group">
-        <label for="expiryDate">New Expiry Date:</label>
-        <input type="date" id="expiryDate" [(ngModel)]="taskToUpdate.expiryDate" name="expiryDate" required class="form-control" />
-      </div>
-      <button type="submit" class="submit-btn">Save</button>
-      <button type="button" (click)="cancelDateUpdate()" class="cancel-btn">Cancel</button>
-    </form>
-  </div>-->
-  <div *ngIf="showDateForm" class="modal-overlay" (click)="cancelDateUpdate()">
-    <div class="modal update-date-modal" (click)="$event.stopPropagation()">
-      <h3>Update Expiry Date</h3>
-      <form (ngSubmit)="saveUpdatedExpiryDate()" class="date-form">
-        <div class="form-group">
-          <label for="expiryDate">New Expiry Date:</label>
-          <input type="date" id="expiryDate" [(ngModel)]="taskToUpdate.expiryDate" name="expiryDate" required class="form-control" />
+  <!-- Display tasks grouped by team and status -->
+  <div *ngFor="let team of filteredTeams" class="team-section">
+    <h3 class="team-title">{{ team.teamName }}</h3>
+    <div class="task-columns">
+      <!-- Column for DISPATCHED tasks -->
+      <div class="task-column dispatched-column">
+        <h4>DISPATCHED</h4>
+        <div class="column-content">
+          <div *ngFor="let task of tasksByTeamAndStatus[team.id]?.['DISPATCHED'] || []" class="task-card" (click)="openTaskModal(task)">
+            <div class="task-header">
+              <p class="unique-number">{{ task.uniqueNumber }}</p>
+
+
+            </div>
+            <h5>{{ task.taskName }}</h5>
+
+            <span class="priority-badge" [ngClass]="task.priority.toLowerCase()">{{ task.priority }}</span>
+
+            <p><strong>Assigned To:</strong> {{ task.assignedTo }}</p>
+            <p><strong>Target Date:</strong> {{ task.expiryDate }}</p>
+            <div class="task-actions">
+              <span 
+                (click)="updateTaskExpiry(task.id, task.expiryDate); $event.stopPropagation()" 
+                class="update-icon fa fa-calendar-alt" 
+                title="Update Date"
+              ></span>
+              <span 
+                (click)="modifyTask(task); $event.stopPropagation()" 
+                class="modify-icon fa fa-edit" 
+                title="Edit"
+              ></span>
+            </div>
+          </div>
         </div>
-        <div class="form-buttons">
-          <button type="submit" class="submit-btn">Save</button>
-          <button type="button" (click)="cancelDateUpdate()" class="cancel-btn">Cancel</button>
+      </div>
+
+      <!-- Column for STARTED tasks -->
+      <div class="task-column started-column">
+        <h4>STARTED</h4>
+        <div class="column-content">
+          <div *ngFor="let task of tasksByTeamAndStatus[team.id]?.['STARTED'] || []" class="task-card" (click)="openTaskModal(task)">
+            <div class="task-header">
+              <h5>{{ task.taskName }}</h5>
+              <p class="unique-number">{{ task.uniqueNumber }}</p>
+
+              <span class="priority-badge" [ngClass]="task.priority.toLowerCase()">{{ task.priority }}</span>
+            </div>
+            <p><strong>Assigned To:</strong> {{ task.assignedTo }}</p>
+            <p><strong>Target Date:</strong> {{ task.expiryDate }}</p>
+            <div class="task-actions">
+              <span 
+                (click)="updateTaskExpiry(task.id, task.expiryDate); $event.stopPropagation()" 
+                class="update-icon fa fa-calendar-alt" 
+                title="Update Date"
+              ></span>
+              <span 
+                (click)="modifyTask(task); $event.stopPropagation()" 
+                class="modify-icon fa fa-edit" 
+                title="Edit"
+              ></span>
+            </div>
+          </div>
         </div>
-      </form>
-    </div>
-  </div>
-  <!-- Task Details Modal -->
-  <div *ngIf="showTaskModal" class="modal-overlay" (click)="closeTaskModal()">
-    <div class="modal" (click)="$event.stopPropagation()">
-      <h3>{{ selectedTask?.taskName }}</h3>
-      <p><strong>Description:</strong> {{ selectedTask?.description }}</p>
-      <p><strong>Status:</strong> {{ selectedTask?.status }}</p>
-      <p><strong>Priority:</strong> {{ selectedTask?.priority }}</p>
-      <p><strong>Created By:</strong> {{ selectedTask?.createdBy?.name || selectedTask?.createdBy }}</p>
-      <p><strong>Assigned To:</strong> {{ selectedTask?.assignedTo?.name || selectedTask?.assignedTo }}</p>
-      <p><strong>Team:</strong> {{ selectedTask?.team?.teamName || selectedTask?.team }}</p>
-      <p><strong>Expiry Date:</strong> {{ selectedTask?.expiryDate }}</p>
-      <button (click)="closeTaskModal()" class="cancel-btn">Close</button>
+      </div>
+
+      <!-- Column for ONGOING tasks -->
+      <div class="task-column ongoing-column">
+        <h4>ONGOING</h4>
+        <div class="column-content">
+          <div *ngFor="let task of tasksByTeamAndStatus[team.id]?.['ONGOING'] || []" class="task-card" (click)="openTaskModal(task)">
+            <div class="task-header">
+              <h5>{{ task.taskName }}</h5>
+              <p class="unique-number">{{ task.uniqueNumber }}</p>
+
+              <span class="priority-badge" [ngClass]="task.priority.toLowerCase()">{{ task.priority }}</span>
+            </div>
+            <p><strong>Assigned To:</strong> {{ task.assignedTo }}</p>
+            <p><strong>Target Date:</strong> {{ task.expiryDate }}</p>
+            <div class="task-actions">
+              <span 
+                (click)="updateTaskExpiry(task.id, task.expiryDate); $event.stopPropagation()" 
+                class="update-icon fa fa-calendar-alt" 
+                title="Update Date"
+              ></span>
+              <span 
+                (click)="modifyTask(task); $event.stopPropagation()" 
+                class="modify-icon fa fa-edit" 
+                title="Edit"
+              ></span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Column for FINISHED tasks -->
+      <div class="task-column finished-column">
+        <h4>FINISHED</h4>
+        <div class="column-content">
+          <div *ngFor="let task of tasksByTeamAndStatus[team.id]?.['FINISHED'] || []" class="task-card" (click)="openTaskModal(task)">
+            <div class="task-header">
+              <h5>{{ task.taskName }}</h5>
+              <p class="unique-number">{{ task.uniqueNumber }}</p>
+
+              <span class="priority-badge" [ngClass]="task.priority.toLowerCase()">{{ task.priority }}</span>
+            </div>
+            <p><strong>Assigned To:</strong> {{ task.assignedTo }}</p>
+            <p><strong>Target Date:</strong> {{ task.expiryDate }}</p>
+            <div class="task-actions">
+              <span 
+                (click)="updateTaskExpiry(task.id, task.expiryDate); $event.stopPropagation()" 
+                class="update-icon fa fa-calendar-alt" 
+                title="Update Date"
+              ></span>
+              <span 
+                (click)="modifyTask(task); $event.stopPropagation()" 
+                class="modify-icon fa fa-edit" 
+                title="Edit"
+              ></span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Column for DELAYED tasks -->
+      <div class="task-column delayed-column">
+        <h4>DELAYED</h4>
+        <div class="column-content">
+          <div *ngFor="let task of tasksByTeamAndStatus[team.id]?.['DELAYED'] || []" class="task-card" (click)="openTaskModal(task)">
+            <div class="task-header">
+              <p class="unique-number">{{ task.uniqueNumber }}</p>
+
+            </div>
+            <h5>{{ task.taskName }}</h5>
+            <span class="priority-badge" [ngClass]="task.priority.toLowerCase()">{{ task.priority }}</span>
+
+            <p><strong>Assigned To:</strong> {{ task.assignedTo }}</p>
+            <p><strong>Target Date:</strong> {{ task.expiryDate }}</p>
+            <div class="task-actions">
+              <span 
+                (click)="updateTaskExpiry(task.id, task.expiryDate); $event.stopPropagation()" 
+                class="update-icon fa fa-calendar-alt" 
+                title="Update Date"
+              ></span>
+              <span 
+                (click)="modifyTask(task); $event.stopPropagation()" 
+                class="modify-icon fa fa-edit" 
+                title="Edit"
+              ></span>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 
-  <!-- Create Task Form 
-  <div *ngIf="showTaskForm">
-    <h3 class="form-title">Create Task</h3>
-    <form (ngSubmit)="createTask()" class="task-form">
+  <!-- Unassigned Tasks Section -->
+  <div *ngIf="tasksByTeamAndStatus[0] && (selectedTeamFilter === 0 || selectedTeamFilter === null)" class="team-section">
+    <h3 class="team-title">Unassigned Tasks</h3>
+    <div class="task-columns">
+      <div class="task-column dispatched-column">
+        <h4>TO DO</h4>
+        <div class="column-content">
+          <div *ngFor="let task of tasksByTeamAndStatus[0]?.['DISPATCHED'] || []" class="task-card" (click)="openTaskModal(task)">
+            <div class="task-header">
+              <h5>{{ task.taskName }}</h5>
+              <p class="unique-number">{{ task.uniqueNumber }}</p>
+
+              <span class="priority-badge" [ngClass]="task.priority.toLowerCase()">{{ task.priority }}</span>
+            </div>
+            <p><strong>Assigned To:</strong> {{ task.assignedTo }}</p>
+            <p><strong>Target Date:</strong> {{ task.expiryDate }}</p>
+            <div class="task-actions">
+              <span 
+                (click)="updateTaskExpiry(task.id, task.expiryDate); $event.stopPropagation()" 
+                class="update-icon fa fa-calendar-alt" 
+                title="Update Date"
+              ></span>
+              <span 
+                (click)="modifyTask(task); $event.stopPropagation()" 
+                class="modify-icon fa fa-edit" 
+                title="Edit"
+              ></span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Add other status columns if needed -->
+    </div>
+  </div>
+<!-- Add modify task modal -->
+<div *ngIf="showModifyForm" class="modal-overlay" (click)="cancelModify()">
+  <div class="modal create-task-modal" (click)="$event.stopPropagation()">
+    <h3 class="form-title">Modify Task</h3>
+    <form (ngSubmit)="saveModifiedTask()" class="task-form">
       <div class="form-group">
-        <label for="taskName">Task Name:</label>
-        <input id="taskName" [(ngModel)]="newTask.taskName" name="taskName" required class="form-control" />
+        <label for="modifyTaskName">Task Name:</label>
+        <input id="modifyTaskName" [(ngModel)]="taskToModify.taskName" name="taskName" required class="form-control" />
       </div>
       <div class="form-group">
-        <label for="description">Description:</label>
-        <textarea id="description" [(ngModel)]="newTask.description" name="description" required class="form-control"></textarea>
+        <label for="modifyDescription">Description:</label>
+        <textarea id="modifyDescription" [(ngModel)]="taskToModify.description" name="description" required class="form-control"></textarea>
       </div>
       <div class="form-group">
-        <label for="priority">Priority:</label>
-        <select id="priority" [(ngModel)]="newTask.priority" name="priority" class="form-control">
+        <label for="modifyPriority">Priority:</label>
+        <select id="modifyPriority" [(ngModel)]="taskToModify.priority" name="priority" class="form-control">
           <option value="LOW">LOW</option>
           <option value="MEDIUM">MEDIUM</option>
           <option value="HIGH">HIGH</option>
         </select>
       </div>
       <div class="form-group">
-        <label for="status">Status:</label>
-        <select id="status" [(ngModel)]="newTask.status" name="status" class="form-control">
+        <label for="modifyStatus">Status:</label>
+        <select id="modifyStatus" [(ngModel)]="taskToModify.status" name="status" class="form-control">
           <option value="DISPATCHED">DISPATCHED</option>
           <option value="STARTED">STARTED</option>
           <option value="ONGOING">ONGOING</option>
@@ -182,30 +274,189 @@
         </select>
       </div>
       <div class="form-group">
-        <label for="expiryDate">Expiry Date:</label>
-        <input type="date" id="expiryDate" [(ngModel)]="newTask.expiryDate" name="expiryDate" required class="form-control" />
+        <label for="modifyExpiryDate">Expiry Date:</label>
+        <input type="date" id="modifyExpiryDate" [(ngModel)]="taskToModify.expiryDate" name="expiryDate" required class="form-control" />
       </div>
       <div class="form-group">
-        <label for="createdBy">Created By:</label>
-        <input type="text" id="createdBy" [value]="profileInfo?.ourUsers?.name" disabled class="form-control" />
-      </div>
-      <div class="form-group">
-        <label for="assignedTo">Assigned To:</label>
-        <select id="assignedTo" [(ngModel)]="newTask.assignedTo" name="assignedTo" class="form-control">
-          <option *ngFor="let user of users" [value]="user.id">{{ user.name }}</option>
-        </select>
-      </div>
-      <div class="form-group">
-        <label for="teamId">Team:</label>
-        <select id="teamId" [(ngModel)]="newTask.teamId" name="teamId" class="form-control">
+        <label for="modifyTeamId">Team:</label>
+        <select id="modifyTeamId" 
+                [(ngModel)]="taskToModify.teamId" 
+                name="teamId" 
+                class="form-control"
+                (change)="onTeamChange($event, true)">
+          <option [value]="null">Select a team</option>
           <option *ngFor="let team of teams" [value]="team.id">{{ team.teamName }}</option>
         </select>
       </div>
-      <button type="submit" class="submit-btn">Create Task</button>
+      <div class="form-group">
+        <label for="modifyAssignedTo">Assigned To:</label>
+        <select id="modifyAssignedTo" 
+                [(ngModel)]="taskToModify.assignedTo" 
+                name="assignedTo" 
+                class="form-control"
+                [disabled]="!taskToModify.teamId">
+          <option [value]="null">Select team first</option>
+          <option *ngFor="let member of teamMembers" [value]="member.id">
+            {{ member.name }} ({{ member.role }})
+          </option>
+        </select>
+      </div>
+      <div class="form-buttons">
+        <button type="submit" class="submit-btn">Save Changes</button>
+        <button type="button" (click)="cancelModify()" class="cancel-btn">Cancel</button>
+      </div>
     </form>
     <div *ngIf="message" class="alert alert-success">{{ message }}</div>
     <div *ngIf="errorMessage" class="alert alert-danger">{{ errorMessage }}</div>
-  </div>-->
+  </div>
+</div>
+  <!-- Expiry Date Update Form -->
+  <div *ngIf="showDateForm" class="modal-overlay" (click)="cancelDateUpdate()">
+    <div class="modal update-date-modal" (click)="$event.stopPropagation()">
+      <h3>Update Expiry Date</h3>
+      <form (ngSubmit)="saveUpdatedExpiryDate()" class="date-form">
+        <div class="form-group">
+          <label for="expiryDate">Target Date:</label>
+          <input type="date" id="expiryDate" [(ngModel)]="taskToUpdate.expiryDate" name="expiryDate" required class="form-control" />
+        </div>
+        <div class="task-actions">
+          <button type="submit" class="submit-btn">Save</button>
+          <button type="button" (click)="cancelDateUpdate()" class="submitt-btn">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Task Details Modal -->
+<!-- Task Details Modal -->
+<div *ngIf="showTaskModal" class="modal-overlay" (click)="closeTaskModal()">
+  <div class="modal" (click)="$event.stopPropagation()">
+    <div class="modal-header">
+      <h3>{{ selectedTask?.taskName }}</h3>
+      <button class="close-btn" (click)="closeTaskModal()">×</button>
+    </div>
+    <div class="modal-content">
+      <!-- Left Column: Task Details and Attachments -->
+      <div class="left-column">
+        <div class="task-details">
+          <p><strong>Description:</strong> {{ selectedTask?.description }}</p>
+          <p><strong>Status:</strong> {{ selectedTask?.status }}</p>
+          <p><strong>Priority:</strong> {{ selectedTask?.priority }}</p>
+          <p><strong>Created By:</strong> {{ selectedTask?.createdBy?.name || selectedTask?.createdBy }}</p>
+          <p><strong>Assigned To:</strong> {{ selectedTask?.assignedTo?.name || selectedTask?.assignedTo }}</p>
+          <p><strong>Target Date:</strong> {{ selectedTask?.expiryDate }}</p>
+        </div>
+
+        <!-- Attachments Section -->
+        <div class="attachments-section">
+          <h4>Attachments</h4>
+          <div class="attachments-list" *ngIf="selectedTask?.attachments?.length > 0; else noAttachments">
+            <div class="attachment-card" *ngFor="let attachment of selectedTask.attachments">
+              <div class="attachment-preview">
+                <img src="/assets/attch.png" alt="Attachment Preview" class="preview-image" />
+              </div>
+              <div class="attachment-details">
+                <a 
+                  href="javascript:void(0)" 
+                  (click)="downloadAttachment(attachment)"
+                  [ngClass]="{'image-link': attachment.endsWith('.png') || attachment.endsWith('.jpg') || attachment.endsWith('.jpeg')}"
+                >
+                  {{ attachment.split('\\').pop() || attachment.split('/').pop() }}
+                </a>
+              </div>
+              <button 
+                *ngIf="canDeleteAttachment(attachment)" 
+                (click)="deleteAttachment(attachment)" 
+                class="delete-btn"
+              >
+                Delete
+              </button>
+            </div>
+          </div>
+          <ng-template #noAttachments>
+            <p>No attachments yet</p>
+          </ng-template>
+
+          <!-- File Upload Form -->
+          <div class="upload-form">
+            <label for="fileInput">Upload Attachments:</label>
+            <input 
+              type="file" 
+              id="fileInput" 
+              multiple 
+              (change)="onFileSelected($event)" 
+              class="form-control" 
+            />
+            <button 
+              (click)="uploadAttachments()" 
+              class="upload-btn" 
+              [disabled]="selectedFiles.length === 0"
+            >
+              Upload
+            </button>
+            <div *ngIf="uploadMessage" class="alert alert-success">{{ uploadMessage }}</div>
+            <div *ngIf="uploadError" class="alert alert-danger">{{ uploadError }}</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Column: Comments Section -->
+      <div class="right-column">
+        <div class="comments-section">
+          <h4>Comments</h4>
+          <div class="comments-list" *ngIf="comments.length > 0; else noComments">
+            <div class="comment-card" *ngFor="let comment of comments">
+              <div *ngIf="editingCommentId !== comment.id; else editForm">
+                <div class="comment-header">
+                  <p class="comment-author"><strong>{{ comment.user.name }}</strong></p>
+                  <p class="comment-timestamp">{{ comment.timestamp | date:'medium' }}</p>
+                </div>
+                <p class="comment-content">{{ comment.content }}</p>
+                <div class="comment-actions" *ngIf="canEditOrDeleteComment(comment)">
+                  <button (click)="editComment(comment)" class="edit-btn">Edit</button>
+                  <button (click)="deleteComment(comment.id)" class="delete-btn">Delete</button>
+                </div>
+              </div>
+              <ng-template #editForm>
+                <textarea 
+                  [(ngModel)]="editingCommentContent" 
+                  class="form-control comment-edit-input" 
+                  rows="3"
+                  placeholder="Edit your comment..."
+                ></textarea>
+                <div class="comment-actions">
+                  <button (click)="saveEditedComment(comment.id)" class="submit-btn">Save</button>
+                  <button (click)="cancelEdit()" class="cancel-btn">Cancel</button>
+                </div>
+              </ng-template>
+            </div>
+          </div>
+          <ng-template #noComments>
+            <p class="no-comments">No comments yet</p>
+          </ng-template>
+
+          <!-- Add Comment Form -->
+          <div class="add-comment-form">
+            <textarea 
+              id="newComment" 
+              [(ngModel)]="newCommentContent" 
+              class="form-control" 
+              rows="3" 
+              placeholder="Write your comment here..."
+            ></textarea>
+            <button 
+              (click)="addComment()" 
+              class="submit-btn" 
+              [disabled]="!newCommentContent.trim()"
+            >
+              Post Comment
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
   <!-- Create Task Modal -->
   <div *ngIf="showTaskForm" class="modal-overlay" (click)="toggleTaskForm()">
@@ -239,25 +490,40 @@
           </select>
         </div>
         <div class="form-group">
-          <label for="expiryDate">Expiry Date:</label>
+          <label for="expiryDate">Target Date:</label>
           <input type="date" id="expiryDate" [(ngModel)]="newTask.expiryDate" name="expiryDate" required class="form-control" />
         </div>
-        <div class="form-group">
+        <div class="form-group" hidden>
           <label for="createdBy">Created By:</label>
           <input type="text" id="createdBy" [value]="profileInfo?.ourUsers?.name" disabled class="form-control" />
         </div>
-        <div class="form-group">
-          <label for="assignedTo">Assigned To:</label>
-          <select id="assignedTo" [(ngModel)]="newTask.assignedTo" name="assignedTo" class="form-control">
-            <option *ngFor="let user of users" [value]="user.id">{{ user.name }}</option>
-          </select>
-        </div>
+
         <div class="form-group">
           <label for="teamId">Team:</label>
-          <select id="teamId" [(ngModel)]="newTask.teamId" name="teamId" class="form-control">
+          <select id="teamId" 
+                  [(ngModel)]="newTask.teamId" 
+                  name="teamId" 
+                  class="form-control"
+                  (change)="onTeamChange($event)">
+            <option [value]="null">Select a team</option>
             <option *ngFor="let team of teams" [value]="team.id">{{ team.teamName }}</option>
           </select>
         </div>
+
+        <div class="form-group">
+          <label for="assignedTo">Assigned To:</label>
+          <select id="assignedTo" 
+                  [(ngModel)]="newTask.assignedTo" 
+                  name="assignedTo" 
+                  class="form-control"
+                  [disabled]="!newTask.teamId">
+            <option [value]="null">Select team first</option>
+            <option *ngFor="let member of teamMembers" [value]="member.id">
+              {{ member.name }} ({{ member.role }})
+            </option>
+          </select>
+        </div>
+
         <div class="form-buttons">
           <button type="submit" class="submit-btn">Create Task</button>
           <button type="button" (click)="toggleTaskForm()" class="cancel-btn">Cancel</button>

@@ -1,20 +1,29 @@
-<div class="modal-overlay"(click)="closeModalOnOverlayClick($event)">
-    <div class="modal" (click)="$event.stopPropagation()">
+<div class="modal-overlay" (click)="closeModalOnOverlayClick($event)">
+  <div class="modal" (click)="$event.stopPropagation()">
+    <div class="modal-header">
       <h2>{{ teamName }} Tasks</h2>
+      <button class="close-btn" (click)="closeModal()">
+        <span class="fa fa-times"></span>
+      </button>
+    </div>
+    <div class="modal-body">
       <div class="tasks-list">
         <div *ngFor="let task of tasks" class="task-item">
-          <h3>{{ task.taskName }}</h3>
-          <p><strong>Status:</strong> {{ task.status }}</p>
-          <p><strong>Due:</strong> {{ task.expiryDate }}</p>
-          <p><strong>Priority:</strong> {{ task.priority }}</p>
-
-          
+          <div class="task-header">
+            <h3>{{ task.taskName }}</h3>
+            <span class="task-status" [ngClass]="{'high': task.priority === 'HIGH', 'medium': task.priority === 'MEDIUM', 'low': task.priority === 'LOW'}">
+              {{ task.priority }}
+            </span>
+          </div>
+          <div class="task-details">
+            <p><strong>Status:  </strong> <span class="status-value">{{ task.status }}</span></p>
+            <p><strong>Target Date:  </strong> <span class="date-value">{{ task.expiryDate | date:'mediumDate' }}</span></p>
+          </div>
         </div>
       </div>
       <div class="empty-message" *ngIf="!tasks || tasks.length === 0">
-        <p>This task is empty. There are no tasks to display.</p>
+        <p>No tasks available for this team.</p>
       </div>
-      <button class="close-btn" (click)="closeModal()">Close</button>
     </div>
   </div>
-  
+</div>

@@ -6,25 +6,19 @@ import com.phegondev.usersmanagementsystem.entity.OurUsers;
 import com.phegondev.usersmanagementsystem.repository.UsersRepo;
 import io.jsonwebtoken.Jwts;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
-import java.util.HashMap;
-import java.util.List;
-import org.springframework.beans.factory.annotation.Value;
-
 import org.springframework.web.multipart.MultipartFile;
-
-import java.util.*;
 
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -42,12 +36,8 @@ public class UsersManagementService {
     @Autowired
     private EmailService emailService;
 
-    // Path for image upload folder
     @Value("${upload.path}")
     private String uploadPath;
-
-    // Other methods...
-
     public ReqRes uploadImage(MultipartFile file, String id) {
         ReqRes response = new ReqRes();
         try {
@@ -63,7 +53,7 @@ public class UsersManagementService {
             OurUsers user = userOptional.get();
 
             // Ensure the 'uploads/image' directory exists
-            File directory = new File(uploadPath); // Using the upload.path defined in application.properties
+            File directory = new File(uploadPath+"/faceID"); // Using the upload.path defined in application.properties
             if (!directory.exists()) {
                 directory.mkdirs(); // Create the directories if they don't exist
             }
@@ -72,7 +62,7 @@ public class UsersManagementService {
             String filename = user.getName() + "_" + System.currentTimeMillis() + ".jpg"; // Adjust extension if needed
 
             // Path to save the file
-            Path path = Paths.get(uploadPath + "/" + filename);
+            Path path = Paths.get(uploadPath + "/faceID/" + filename);
 
             // Save the file to the specified path
             Files.write(path, file.getBytes());
@@ -91,28 +81,6 @@ public class UsersManagementService {
         }
         return response;
     }
-    /**public ReqRes getAllUserImages() {
-        ReqRes reqRes = new ReqRes();
-        try {
-            List<OurUsers> users = usersRepo.findAll();
-            if (!users.isEmpty()) {
-                List<String> imagePaths = users.stream()
-                        .filter(user -> user.getImage() != null)
-                        .map(OurUsers::getImage)
-                        .collect(Collectors.toList());
-                reqRes.setData(imagePaths);
-                reqRes.setStatusCode(200);
-                reqRes.setMessage("User images retrieved successfully");
-            } else {
-                reqRes.setStatusCode(404);
-                reqRes.setMessage("No users found");
-            }
-        } catch (Exception e) {
-            reqRes.setStatusCode(500);
-            reqRes.setMessage("Error occurred: " + e.getMessage());
-        }
-        return reqRes;
-    }**/
     public ReqRes getAllUserImages() {
         ReqRes reqRes = new ReqRes();
         try {
@@ -122,7 +90,9 @@ public class UsersManagementService {
                         .filter(user -> user.getFaceId() != null)
                         .map(user -> {
                             Map<String, String> userData = new HashMap<>();
-                            userData.put("image", user.getFaceId());
+                            // Construct the URL instead of returning the raw file path
+                            String faceIdUrl = "http://localhost:1010/uploads/faceID/" + Paths.get(user.getFaceId()).getFileName().toString();
+                            userData.put("faceId", faceIdUrl); // Return URL
                             userData.put("email", user.getEmail());
                             return userData;
                         })
@@ -146,7 +116,7 @@ public class UsersManagementService {
 
         try {
             // Create a File object to point to the image directory
-            File directory = new File(uploadPath);
+            File directory = new File(uploadPath+"/faceID");
 
             // Check if directory exists
             if (!directory.exists() || !directory.isDirectory()) {
@@ -214,7 +184,6 @@ public class UsersManagementService {
         }
         return resp;
     }
-
     public ReqRes loginViaFaceID(String email) {
         ReqRes response = new ReqRes();
         try {
@@ -251,6 +220,7 @@ public class UsersManagementService {
         }
         return response;
     }
+
     public ReqRes login(ReqRes loginRequest){
         ReqRes response = new ReqRes();
         try {

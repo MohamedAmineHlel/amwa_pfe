@@ -1,107 +1,205 @@
 <div class="card">
-
-<div class="container">
+  <div class="container">
     <div class="left-side" *ngIf="isAdmin">
       <p *ngIf="errorMessage" class="error-message">{{ errorMessage }}</p>
       
-      <h2>Team Management</h2>
-      
+      <h2 class="section-title">Team Management</h2>
+      <!-- Button to open Create Team Modal -->
+      <div style="display: flex; gap: 10px;">
+        <button class="submit-btn" (click)="openCreateTeamModal()">Add New Team</button>
+      </div><br><br>
       <!-- Create Team Section -->
-      <form (submit)="createTeam()" >
-        <div class="form-group">
-          <label for="teamName">Team Name:</label>
-          <input id="teamName" type="text" [(ngModel)]="teamName" name="teamName" placeholder="Enter team name" required />
-        </div>
-        <button type="submit">Create Team</button>
-      </form>
-    
-      <form (submit)="assignUserToTeam()">
-        <div class="form-group">
-          <label for="userId">Select User:</label>
-          <select id="userId" [(ngModel)]="userId" name="userId" class="custom-select"   required>
-            <option value="" disabled selected >Choose a user</option>
-            <ng-container *ngFor="let user of users">
-              <option *ngIf="  !user.team && user.role !== 'ADMIN' && user.role !== 'SUPERMANAGER'" [value]="user.id">
-               Member: {{ user.name }}        Role: {{ user.role }}     Team: {{ user.team ? user.team.teamName : 'No Team' }}
-              </option>
-            </ng-container>         
-           </select>
-        </div>
+     <!-- Create Team Modal -->
+     <div class="modal" *ngIf="isCreatingTeam">
+      <div class="modal-content management-section">
+        <p *ngIf="errorMessage" class="error-message">{{ errorMessage }}</p>
+
+        <h3>Create New Team</h3>
+        <form (submit)="createTeam()" class="management-form">
+          <div class="form-group">
+            <label for="teamName">Team Name</label>
+            <input 
+              id="teamName" 
+              type="text" 
+              [(ngModel)]="teamName" 
+              name="teamName" 
+              placeholder="Enter team name" 
+              required 
+              class="form-input"
+            />
+          </div>
+          <div class="form-group">
+            <label for="projectId">Select Project</label>
+            <select 
+              id="projectId" 
+              [(ngModel)]="projectId" 
+              name="projectId" 
+              class="custom-select"
+            >
+              <option value="">No Project</option>
+              <option *ngFor="let project of availableProjects" [value]="project.id">{{ project.name }}</option>
+            </select>
+          </div>
         
-        <div class="form-group">
-          <label for="teamId">Select Team:</label>
-          <select id="teamId" [(ngModel)]="teamId" name="teamId" class="custom-select" required>
-            <option value="" disabled selected>Choose a team</option>
-            <option *ngFor="let team of teams" [value]="team.id ">{{ team.teamName }}</option>
-          </select>
-        </div>
-      
-        <button type="submit" >Assign User</button>
-      </form>
-      
+          <div class="modal-actions">
+            <button class="submit-btn" type="button" (click)="createTeam()">Create</button>
+            <button class="toggle-btn" type="button" (click)="cancelCreateTeam()">Cancel</button>
+          </div>
+        </form>
+      </div>
+    </div>
+    
+      <!-- Assign User to Team Section -->
+      <div class="management-section">
+        <h3>Assign User to Team</h3>
+        <form (submit)="assignUserToTeam()" class="management-form">
+          <div class="form-group">
+            <label for="userId">Select User</label>
+            <select 
+              id="userId" 
+              [(ngModel)]="userId" 
+              name="userId" 
+              class="custom-select" 
+              required
+            >
+              <option value="" disabled selected>Choose a user</option>
+              <ng-container *ngFor="let user of users">
+                <option 
+                  *ngIf="!user.team && user.role !== 'ADMIN' && user.role !== 'SUPERMANAGER' && (user.role === 'MANAGER' || user.role === 'SUPERVISOR' || user.role === 'OPERATOR')" 
+                  [value]="user.id"
+                >
+                  {{ user.name }} ({{ user.role }})
+                </option>
+              </ng-container>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="teamId">Select Team</label>
+            <select 
+              id="teamId" 
+              [(ngModel)]="teamId" 
+              name="teamId" 
+              class="custom-select" 
+              required
+            >
+              <option value="" disabled selected>Choose a team</option>
+              <option *ngFor="let team of teams" [value]="team.id">{{ team.teamName }}</option>
+            </select>
+          </div>
+          <button type="submit" class="submit-btn">Assign User</button>
+        </form>
+      </div>
     
       <!-- Unassign User from Team Section -->
-      <form (submit)="unassignUserFromTeam()">
-        <div class="form-group">
-          <label for="userId">Select User:</label>
-          <select id="userId" [(ngModel)]="userId" name="userId" class="custom-select" required>
-            <option value="" disabled selected>Choose a user</option>
-            <ng-container *ngFor="let user of users">
-              <option *ngIf=" user.team &&  user.role !== 'ADMIN' && user.role !== 'SUPERMANAGER'" [value]="user.id">
-                Member: {{ user.name }}        Role: {{ user.role }}     Team: {{ user.team ? user.teamName  : 'No Team' }}
-              </option>
-            </ng-container>          </select>
-        </div>
-        <button type="submit" >Unassign User</button>
-      </form>
-      
-      
+      <div class="management-section">
+        <h3>Unassign User</h3>
+        <form (submit)="unassignUserFromTeam()" class="management-form">
+          <div class="form-group">
+            <label for="userId">Select User</label>
+            <select 
+              id="userId" 
+              [(ngModel)]="userId" 
+              name="userId" 
+              class="custom-select" 
+              required
+            >
+              <option value="" disabled selected>Choose a user</option>
+              <ng-container *ngFor="let user of users">
+                <option 
+                  *ngIf="user.team && user.role !== 'ADMIN' && user.role !== 'SUPERMANAGER'" 
+                  [value]="user.id"
+                >
+                  {{ user.name }} ({{ user.role }}) - Team: {{ user.team ? user.teamName : 'No Team' }}
+                </option>
+              </ng-container>
+            </select>
+          </div>
+          <button type="submit" class="submit-btn">Unassign User</button>
+        </form>
+      </div>
     </div>
   
     <div class="right-side" [ngClass]="{ 'full-width': !isAdmin }">
-      <h2>All Teams</h2>
-      <table >
-        <thead>
-          <tr>
-            <th>Team Name</th>
-            <th>Members Count</th> <!-- New column -->
-            <th>Tasks Assigned</th> <!-- New column for tasks assigned -->
-
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let team of teams " >
-            <td >{{ team.teamName }}</td>
-            <td (click)="viewTeamUsers(team.id, team.teamName)">{{ getMembersCount(team.id) }}</td> <!-- Show member count -->
-            <td (click)="openTaskModal(team.id, team.teamName)">{{ teamTaskCounts[team.id] || 0 }}</td> <!-- Show tasks count -->
-
-            <td class="inline">
-              <button class="view-btn" (click)="viewTeamUsers(team.id, team.teamName)">Members</button>
-              <button class="task-btn" (click)="openTaskModal(team.id, team.teamName)">Tasks</button> <!-- New button -->
-
-              <button *ngIf="isAdmin" class="delete-btn" (click)="deleteTeam2(team.id)">Delete</button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+      <h2 class="section-title">All Teams</h2>
+      <div class="teams-grid">
+        <div class="team-card" *ngFor="let team of teams">
+          <div class="team-header">
+            <h3>{{ team.teamName }}</h3>
+          </div>
+          <div class="team-info">
+            <p><strong>Project:  </strong> {{ team.project ? team.project.name : 'None  ' }} <strong>   Airline: </strong> {{ team.airline ? team.airline.name : 'None' }}</p>
+            <p><strong>Members Count:  </strong> <span (click)="viewTeamUsers(team.id, team.teamName)">{{ getMembersCount(team.id) }}</span></p>
+            <p><strong>Tasks Count:  </strong> <span (click)="openTaskModal(team.id, team.teamName)">{{ teamTaskCounts[team.id] || 0 }}</span></p>
+        
+          </div>
+          <div class="team-actions-container">
+            <div class="team-actions-left">
+              <span class="action-icon fa fa-tasks" (click)="openTaskModal(team.id, team.teamName)" title="View Tasks"></span>
+              <span class="action-icon fa fa-users" (click)="viewTeamUsers(team.id, team.teamName)" title="View Members"></span>
+            </div>
+            <div class="team-actions-right" *ngIf="isAdmin">
+              <span class="action-icon fa fa-edit" (click)="openModifyTeamModal(team)" title="Modify Team"></span>
+              <span class="action-icon fa fa-trash" (click)="deleteTeam2(team.id)" title="Delete Team"></span>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="teams.length === 0" class="no-teams">
+          <p>No teams available.</p>
+        </div>
+      </div> 
     </div>
-    
-    <!-- Team Modal -->
-    <!-- Team Modal -->
-<app-team-modal *ngIf="selectedTeamMembers !== null" 
-[teamName]="selectedTeamName" 
-[users]="selectedTeamMembers"
-(close)="selectedTeamMembers = null">
-</app-team-modal>
-      
-    <app-task-modal 
-    *ngIf="selectedTeamTasks !== null" 
-    [teamName]="selectedTeamName" 
-    [tasks]="selectedTeamTasks" 
-    (close)="selectedTeamTasks = null">
-  </app-task-modal>
-  
-    
   </div>
 </div>
+<div class="modal" *ngIf="isModifyingTeam">
+  <div class="modal-content management-section">
+    <p *ngIf="errorMessage" class="error-message">{{ errorMessage }}</p>
+
+    <h3>Modify Team: {{ selectedTeam?.teamName }}</h3>
+    <form (submit)="modifyTeam()" class="management-form">
+      <div class="form-group">
+        <label for="modifyTeamName">Team Name</label>
+        <input 
+          id="modifyTeamName" 
+          type="text" 
+          [(ngModel)]="modifyTeamName" 
+          name="modifyTeamName" 
+          placeholder="Enter team name" 
+          required 
+          class="form-input"
+        />
+      </div>
+      <div class="form-group">
+        <label for="modifyProjectId">Select Project</label>
+        <select 
+          id="modifyProjectId" 
+          [(ngModel)]="modifyProjectId" 
+          name="modifyProjectId" 
+          class="custom-select"
+        >
+          <option value="">No Project</option>
+          <option *ngFor="let project of projects" [value]="project.id">{{ project.name }}</option>
+        </select>
+      </div>
+     
+      <div class="modal-actions">
+        <button class="submit-btn" type="button" (click)="modifyTeam()">Save Changes</button>
+        <button class="toggle-btn" type="button" (click)="cancelModifyTeam()">Cancel</button>
+      </div>
+    </form>
+  </div>
+</div>
+<!-- Team Modal -->
+<app-team-modal 
+  *ngIf="selectedTeamMembers !== null" 
+  [teamName]="selectedTeamName" 
+  [users]="selectedTeamMembers" 
+  (close)="selectedTeamMembers = null"
+></app-team-modal>
+
+<!-- Task Modal -->
+<app-task-modal 
+  *ngIf="selectedTeamTasks !== null" 
+  [teamName]="selectedTeamName" 
+  [tasks]="selectedTeamTasks" 
+  (close)="selectedTeamTasks = null"
+></app-task-modal>

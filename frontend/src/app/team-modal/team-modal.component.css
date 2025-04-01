@@ -1,102 +1,250 @@
+/* Modal Overlay */
 .modal-overlay {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.7);  /* Darker overlay for better contrast */
+    background: rgba(0, 0, 0, 0.5); /* Slightly transparent black for contrast */
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 9999;  /* Ensure modal is on top of other content */
-    animation: fadeIn 0.3s ease-out;  /* Smooth fade-in animation */
+    z-index: 1000;
+    animation: fadeIn 0.3s ease-out;
 }
 
+/* Modal */
 .modal {
-    background: #fff; /* White background for the modal */
+    background: #ffffff;
+    padding: 0;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    width: 600px;
+    max-height: 80vh;
+    overflow-y: auto;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Modal Header */
+.modal-header {
+    padding: 20px 30px;
+    background: linear-gradient(135deg, #ef4444, #b91c1c); /* Red gradient */
+    color: #ffffff;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+}
+
+.modal-header h2 {
+    font-size: 24px;
+    font-weight: 700;
+    margin: 0;
+}
+
+.close-btn {
+    padding: 8px;
+    font-size: 18px;
+    background: none;
+    color: #ffffff;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.close-btn:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+    transform: scale(1.1);
+}
+
+.close-btn:focus {
+    outline: none;
+}
+
+/* Modal Body */
+.modal-body {
     padding: 30px;
-    border-radius: 10px;  /* Rounded corners for a softer look */
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2); /* Stronger shadow for a floating effect */
-    width: 500px; /* Increased width for better layout */
-    max-height: 80%;  /* Limit the modal's height */
-    overflow-y: auto;  /* Scrollable if content overflows */
-    text-align: left; /* Align content to the left for better readability */
-    font-family: 'Arial', sans-serif; /* Clean font */
 }
 
-h2 {
-    font-size: 1.5em;
-    color: #333;  /* Darker text for the title */
-    margin-bottom: 20px;  /* More space below the heading */
-    text-align: center;
-}
-
+/* Members List */
 .members-list {
-    margin-top: 20px;
+    margin-top: 0;
 }
 
 .member-item {
-    margin-bottom: 20px; /* Space between members */
+    margin-bottom: 20px;
     padding: 15px;
-    background-color: #f9f9f9; /* Slight background color for each member */
-    border-radius: 8px; /* Rounded corners for member items */
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Light shadow for member items */
+    background-color: #f9fafb;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.member-item h3 {
-    font-size: 1.3em;
-    color: #000000;  /* Blue color for member name */
+.member-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.member-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     margin-bottom: 10px;
 }
 
-.member-item p {
-    font-size: 1em;
-    color: #555;  /* Slightly lighter text */
-    margin: 5px 0;
+.member-header h3 {
+    font-size: 16px;
+    font-weight: 600;
+    color: #1e293b;
+    margin: 0;
 }
 
-hr {
-    border: 0;
-    border-top: 1px solid #ccc;
-    margin: 10px 0;
+.member-role {
+    font-size: 12px;
+    font-weight: 500;
+    padding: 4px 10px;
+    border-radius: 12px;
+    color: #ffffff;
 }
 
-button {
-    padding: 10px 20px;
-    font-size: 1.1em;
-    background-color: #007BFF;  /* Bootstrap-like blue color */
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;  /* Smooth transition for hover effect */
-    display: block;
-    margin: 20px auto 0; /* Center button and add top margin */
+.member-role.admin {
+    background-color: #dc2626; /* Red for admin */
 }
 
-button:hover {
-    background-color: #0056b3;  /* Darker blue on hover */
+.member-role.supermanager {
+    background-color: #f59e0b; /* Amber for super manager */
 }
 
-button:focus {
-    outline: none;  /* Remove focus outline for a cleaner design */
+.member-role.manager {
+    background-color: #3b82f6; /* Blue for manager */
 }
 
-/* Animation for modal fade-in */
-@keyframes fadeIn {
-    0% {
-        opacity: 0;
-    }
-    100% {
-        opacity: 1;
-    }
+.member-role.supervisor {
+    background-color: #8b5cf6; /* Purple for supervisor */
 }
+
+.member-role.operator {
+    background-color: #10b981; /* Emerald for operator */
+}
+
+.member-role.user {
+    background-color: #6b7280; /* Gray for user */
+}
+
+.member-details {
+    margin: 0;
+}
+
+.member-details p {
+    font-size: 14px;
+    color: #4b5563;
+    margin: 6px 0;
+}
+
+.username-value {
+    font-weight: 500;
+    color: #1e293b;
+}
+
+/* Empty Message */
 .empty-message {
     text-align: center;
-    color: #555; /* Match the color of other text in the modal */
-    font-size: 1.1em; /* Slightly larger for emphasis */
-    padding: 20px; /* Add some padding for better spacing */
-    background-color: #f9f9f9; /* Match the member-item background for consistency */
-    border-radius: 8px; /* Match the rounded corners of member items */
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Light shadow for consistency */
-  }
+    color: #6b7280;
+    font-size: 15px;
+    padding: 20px;
+    background-color: #f9fafb;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    margin-top: 20px;
+}
+
+/* Animation */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .modal {
+        width: 90%;
+        max-height: 85vh;
+    }
+
+    .modal-header {
+        padding: 15px 20px;
+    }
+
+    .modal-header h2 {
+        font-size: 20px;
+    }
+
+    .close-btn {
+        padding: 6px;
+        font-size: 16px;
+    }
+
+    .modal-body {
+        padding: 20px;
+    }
+
+    .member-header h3 {
+        font-size: 15px;
+    }
+
+    .member-details p {
+        font-size: 13px;
+    }
+
+    .empty-message {
+        font-size: 14px;
+        padding: 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    .modal {
+        width: 95%;
+        max-height: 90vh;
+    }
+
+    .modal-header {
+        padding: 10px 15px;
+    }
+
+    .modal-header h2 {
+        font-size: 18px;
+    }
+
+    .close-btn {
+        padding: 4px;
+        font-size: 14px;
+    }
+
+    .modal-body {
+        padding: 15px;
+    }
+
+    .member-header {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .member-header h3 {
+        font-size: 14px;
+    }
+
+    .member-details p {
+        font-size: 12px;
+    }
+
+    .empty-message {
+        font-size: 13px;
+        padding: 10px;
+    }
+}

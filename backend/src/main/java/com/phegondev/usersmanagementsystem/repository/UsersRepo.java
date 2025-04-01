@@ -15,4 +15,6 @@ public interface UsersRepo extends JpaRepository<OurUsers, Integer> {
     List<OurUsers> findByTeam(Team team);
     @Query("SELECT u FROM OurUsers u LEFT JOIN FETCH u.team")
     List<OurUsers> findAllWithTeams();  // Custom method to fetch users with teams
+    List<OurUsers> findByRole(String role);
+    List<OurUsers> findByRoleIn(List<String> roles);
 }

@@ -1,17 +1,35 @@
 <div class="modal-overlay" (click)="closeModalOnOverlayClick($event)">
   <div class="modal" (click)="$event.stopPropagation()">
-    <h2>{{ teamName }} Members</h2>
-    <div class="members-list">
-      <div *ngFor="let user of users" class="member-item">
-        <h3>{{ user.name }}</h3>
-        <p><strong>Username:</strong> {{ user.username }}</p>
-        <p><strong>Role:</strong> {{ user.role }}</p>
+    <div class="modal-header">
+      <h2>{{ teamName }} Members</h2>
+      <button class="close-btn" (click)="closeModal()">
+        <span class="fa fa-times"></span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="members-list">
+        <div *ngFor="let user of users" class="member-item">
+          <div class="member-header">
+            <h3>{{ user.name }}</h3>
+            <span class="member-role" [ngClass]="{
+              'admin': user.role === 'ADMIN',
+              'supermanager': user.role === 'SUPERMANAGER',
+              'manager': user.role === 'MANAGER',
+              'supervisor': user.role === 'SUPERVISOR',
+              'operator': user.role === 'OPERATOR',
+              'user': user.role === 'USER'
+            }">
+              {{ user.role }}
+            </span>
+          </div>
+          <div class="member-details">
+            <p><strong>Email:</strong> <span class="username-value">{{ user.username }}</span></p>
+          </div>
+        </div>
+      </div>
+      <div class="empty-message" *ngIf="!users || users.length === 0">
+        <p>No members available for this team.</p>
       </div>
     </div>
-    <!-- Show empty team message if no members -->
-    <div class="empty-message" *ngIf="!users || users.length === 0">
-      <p>This team is empty. There are no members to display.</p>
-    </div>
-    <button class="close-btn" (click)="closeModal()">Close</button>
   </div>
 </div>

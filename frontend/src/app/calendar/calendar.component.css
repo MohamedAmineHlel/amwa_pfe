@@ -1,0 +1,218 @@
+/* Card Container */
+.card {
+    max-width: 850px; /* Slightly wider for a balanced look */
+    margin: 10px auto;
+    border-radius: 12px;
+    overflow: hidden; /* Ensures content stays within rounded corners */
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+  }
+  
+  /* Card Header */
+  .card-header {
+    padding: 15px 20px;
+    background: linear-gradient(90deg, #660000 0%, #8f2d2d 100%); /* Gradient header */
+    color: white;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  
+  .card-header h2 {
+    font-size: 22px;
+    font-weight: 600;
+    margin: 0;
+    letter-spacing: 0.5px;
+  }
+  
+  /* Card Body */
+  .card-body {
+    padding: 20px;
+  }
+  
+  /* Alert */
+  .alert-danger {
+    margin-top: 10px;
+    padding: 8px 12px;
+    background-color: #ffebee;
+    color: #af646b;
+    border: 1px solid #f5c6cb;
+    border-radius: 6px;
+    font-size: 14px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  }
+  
+  /* FullCalendar Styles */
+  :host ::ng-deep .fc {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.05);
+  }
+  
+  :host ::ng-deep .fc-toolbar {
+    background: #f4f5f7;
+    padding: 10px;
+    border-bottom: 1px solid #dfe1e6;
+    border-radius: 8px 8px 0 0;
+  }
+  
+  :host ::ng-deep .fc-button {
+    background-color: #660000;
+    border: none;
+    color: white;
+    padding: 6px 12px;
+    font-size: 13px;
+    font-weight: 500;
+    border-radius: 6px;
+    text-transform: uppercase;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+  }
+  
+  :host ::ng-deep .fc-button:hover {
+    background-color: #c42c2c;
+    transform: translateY(-1px);
+  }
+  
+  :host ::ng-deep .fc-button:active {
+    background-color: #8f2d2d;
+    transform: translateY(0);
+  }
+  
+  :host ::ng-deep .fc-button:focus {
+    box-shadow: 0 0 0 3px rgba(102, 0, 0, 0.3);
+  }
+  
+  :host ::ng-deep .fc-event {
+    background-color: #af646b;
+    border: none;
+    color: white;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.2s ease, transform 0.2s ease;
+  }
+  
+  :host ::ng-deep .fc-event:hover {
+    background-color: #a7404a;
+    transform: translateY(-1px);
+  }
+  
+  :host ::ng-deep .fc-daygrid-day {
+    background: #fff;
+    border: 1px solid #dfe1e6;
+  }
+  
+  :host ::ng-deep .fc-daygrid-day:hover {
+    background: #f9fafb;
+  }
+  
+  :host ::ng-deep .fc-daygrid-day.fc-day-today {
+    background: #fff3e0;
+    font-weight: 600;
+  }
+  
+  /* Modal Styles */
+  .modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
+  
+  .modal-content {
+    background: #fff;
+    padding: 0; /* Remove padding here, handled by sections */
+    border-radius: 12px;
+    width: 450px;
+    max-width: 90%;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+  }
+  
+  .modal-header {
+    padding: 15px 20px;
+    background: linear-gradient(90deg, #660000 0%, #8f2d2d 100%);
+    color: white;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  
+  .modal-header h3 {
+    margin: 0;
+    font-size: 20px;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+  }
+  
+  .modal-body {
+    padding: 20px;
+    background: #f9fafb;
+  }
+  
+  .modal-body p {
+    margin: 10px 0;
+    color: #333;
+    font-size: 14px;
+    line-height: 1.5;
+  }
+  
+  .modal-body p strong {
+    color: #660000;
+    font-weight: 600;
+  }
+  
+  .modal-footer {
+    padding: 15px 20px;
+    background: #f4f5f7;
+    border-top: 1px solid #dfe1e6;
+    text-align: right;
+  }
+  
+  .close-btn {
+    padding: 8px 20px;
+    background-color: #660000;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+  }
+  
+  .close-btn:hover {
+    background-color: #c42c2c;
+    transform: translateY(-1px);
+  }
+  
+  .close-btn:active {
+    background-color: #8f2d2d;
+    transform: translateY(0);
+  }
+  
+  /* Responsive Adjustments */
+  @media (max-width: 768px) {
+    .card {
+      max-width: 95%;
+      margin: 10px auto;
+    }
+  
+    .modal-content {
+      width: 90%;
+    }
+  
+    :host ::ng-deep .fc {
+      font-size: 12px;
+    }
+  
+    :host ::ng-deep .fc-button {
+      padding: 4px 8px;
+      font-size: 12px;
+    }
+  }

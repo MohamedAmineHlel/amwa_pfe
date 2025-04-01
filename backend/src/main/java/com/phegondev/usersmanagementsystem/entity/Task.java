@@ -13,7 +13,7 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id") // ✅ Prevent recursion
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 
 public class Task {
 
@@ -30,36 +30,35 @@ public class Task {
     @Enumerated(EnumType.STRING)
     private Status status;
 
-    private LocalDate expiryDate; // ✅ New attribute for task expiry date
+    private LocalDate expiryDate;
+    private String uniqueNumber; // New field
 
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "created_by_id", nullable = true)
-    //@JsonBackReference(value = "task-created-by")  // Back reference for createdBy
-    //@JsonManagedReference(value = "task-created-by")  // Use ManagedReference here
-    @JsonIgnoreProperties({"createdTasks", "assignedTasks", "team"}) // Avoid recursion
+    @JsonIgnoreProperties({"createdTasks", "assignedTasks", "team"})
 
     private OurUsers createdBy;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    //@JsonBackReference(value = "task-assigned-to")  // Back reference for assignedTo
-    //@JsonManagedReference(value = "task-assigned-to")  // Use ManagedReference here
-    @JsonIgnoreProperties({"createdTasks", "assignedTasks", "team"}) // Avoid recursion
+    @JsonIgnoreProperties({"createdTasks", "assignedTasks", "team"})
 
     @JoinColumn(name = "assigned_to_id", nullable = true)
 
     private OurUsers assignedTo;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    //@JsonManagedReference(value = "task-team")  // Back reference for team
-
     @JoinColumn(name = "team_id", nullable = true)
 
     private Team team;
 
     @ElementCollection
-    private List<String> attachments; // Store attachment URLs or file paths
+    private List<String> attachments;
 
     @ElementCollection
-    private List<String> comments; // List of comments related to the task
+    private List<String> comments;
+
+    @OneToMany(mappedBy = "task", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference(value = "task-commentss") // Updated reference name
+    private List<Comment> commentss; // Renamed from comments to commentss
 }

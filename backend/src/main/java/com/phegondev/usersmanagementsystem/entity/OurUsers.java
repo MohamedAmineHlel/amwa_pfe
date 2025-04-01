@@ -14,7 +14,7 @@ import java.util.List;
 @Entity
 @Table(name = "ourusers")
 @Data
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id") // ✅ Prevent recursion
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 
 public class OurUsers implements UserDetails {
 
@@ -26,32 +26,28 @@ public class OurUsers implements UserDetails {
     private String password;
     private String city;
     private String role;
-    private String image = null;  // Explicitly setting default to null
     private String faceId = null; // Explicitly setting default to null
+
     @ManyToOne
     @JoinColumn(name = "team_id")
-    //@JsonManagedReference  // This annotation ensures the team is serialized correctly
-    //@JsonBackReference(value = "tt")  // Back reference for createdBy
-
     private Team team;
 
     @OneToMany(mappedBy = "createdBy")
-    //@JsonIgnoreProperties({"createdBy", "assignedTo", "team"}) // Add these properties to prevent recursion
-    //@JsonBackReference(value = "task-created-by")  // Back reference
-    //@JsonManagedReference(value = "task-created-by") // Ensure proper serialization for created tasks
-    @JsonBackReference(value = "task-created-by")  // Back reference for createdBy
-    @JsonIgnoreProperties({"createdBy", "assignedTo", "team"}) // Avoid recursion
+    @JsonBackReference(value = "task-created-by")
+    @JsonIgnoreProperties({"createdBy", "assignedTo", "team"})
 
     private List<Task> createdTasks;
 
     @OneToMany(mappedBy = "assignedTo")
-    //@JsonIgnoreProperties({"createdBy", "assignedTo", "team"}) // Add these properties to prevent recursion
-    //@JsonBackReference(value = "task-assigned-to")  // Back reference
-    //@JsonManagedReference(value = "task-assigned-to") // Ensure proper serialization for assigned tasks
     @JsonBackReference(value = "task-assigned-to")  // Back reference for assignedTo
     @JsonIgnoreProperties({"createdBy", "assignedTo", "team"}) // Avoid recursion
 
     private List<Task> assignedTasks;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    @JsonBackReference(value = "user-comments")
+    @JsonIgnoreProperties({"user", "task"})
+    private List<Comment> createdComments;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

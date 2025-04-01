@@ -1,0 +1,55 @@
+ // uploadVideo1() {
+  //   const formData = new FormData();
+  //   formData.append('video', this.videoBlob, 'recorded_video.webm');
+  
+  //   this.http.post<any>('http://127.0.0.1:5000/upload', formData).subscribe(
+  //     response => {
+  //       console.log('Vidéo envoyée avec succès:', response);
+  
+  //       if (response.recognized_faces && response.recognized_faces.length > 0) {
+  //         const detectedFace = response.recognized_faces[0];
+  
+  //         if (detectedFace === "Inconnu") {
+  //           this.message = "Visage inconnu !";
+  //           if (this.retryRecording) {
+  //             this.startRecording(); // Relancer un nouvel enregistrement
+  //           }
+  //         } else {
+  //           this.message = "Bienvenue " + detectedFace;
+  //           this.retryRecording = false; // Stopper les tentatives
+  //           this.closeCamera();  // Fermer la caméra avant de rediriger
+  //           this.router.navigate(['/login']); // Redirection vers la page login
+  //         }
+  //       } else {
+  //         this.message = "Aucun visage détecté.";
+  //         if (this.retryRecording) {
+  //           this.startRecording(); // Retenter si aucun visage détecté
+  //         }
+  //       }
+  //     },
+  //     error => {
+  //       console.error('Erreur d’envoi:', error);
+  //     }
+  //   );
+  // }
+//uploadVideo() {
+//     const formData = new FormData();
+//     formData.append('video', this.videoBlob, 'recorded_video.webm');
+
+//      this.http.post<any>('http://127.0.0.1:5000/upload', formData).subscribe(
+//         response => {
+//             if (response.email && response.login_response) {
+//                 // Log in the user
+//                 this.closeCamera();
+//                 localStorage.setItem('token', response.login_response.token);
+//                 localStorage.setItem('role', response.login_response.role);
+//                 this.router.navigate(['/login']);
+//             } else {
+//                 this.message = "No recognized face found.";
+//             }
+//         },
+//         error => {
+//             this.message = "Error processing video.";
+//         }
+//     );
+// }

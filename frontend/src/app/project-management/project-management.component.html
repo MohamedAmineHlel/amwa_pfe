@@ -1,0 +1,128 @@
+<div class="card">
+    <h2 class="section-title">Project Management</h2>
+  
+    <!-- Error Message -->
+    <p class="error-message" *ngIf="errorMessage">{{ errorMessage }}</p>
+  
+    <!-- Buttons -->
+    <div style="display: flex; gap: 10px;">
+        <button class="submit-btn" (click)="openCreateModal()">Add New Project</button>
+        <button class="toggle-btn" (click)="openArchivedModal()">Archived Projects</button>
+    </div><br><br>
+  
+    <!-- Active Project List as Table -->
+    <div class="management-section project-list">
+      <h3>Active Projects</h3>
+      <table class="project-table">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Abbreviation</th>
+            <th>Description</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let project of projects | filter: { archived: false }">
+            <td>{{ project.name }}</td>
+            <td>{{ project.abbr }}</td>
+            <td>{{ project.description }}</td>
+            <td>
+              <button class="action-icon delete-icon" (click)="deleteProject(project.id); $event.stopPropagation()" title="Delete">
+                <i class="fas fa-trash"></i>
+              </button>
+              <button class="action-icon archive-icon" (click)="archiveProject(project.id); $event.stopPropagation()" title="Archive">
+                <i class="fas fa-archive"></i>
+              </button>
+              <button class="action-icon modify-icon" (click)="selectProjectForUpdate(project.id); $event.stopPropagation()" title="Modify">
+                <i class="fas fa-edit"></i>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  
+    <!-- Create Project Modal -->
+    <div class="modal" *ngIf="isCreating">
+      <div class="modal-content management-section">
+        <h3>Create New Project</h3>
+        <form class="management-form">
+          <div class="form-group">
+            <label>Project Name</label>
+            <input class="form-input" type="text" [(ngModel)]="newProject.nameProject" name="nameProject" required>
+          </div>
+          <div class="form-group">
+            <label>Description</label>
+            <input class="form-input" type="text" [(ngModel)]="newProject.descriptionProject" name="descriptionProject">
+          </div>
+          <div class="form-group">
+            <label>Abbreviation</label>
+            <input class="form-input" type="text" [(ngModel)]="newProject.abbrProject" name="abbrProject">
+          </div>
+          <div class="modal-actions">
+            <button class="submit-btn" type="button" (click)="createProject()">Create</button>
+            <button class="toggle-btn" type="button" (click)="cancelCreate()">Cancel</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  
+    <!-- Update Project Modal -->
+    <div class="modal" *ngIf="isModifying">
+      <div class="modal-content management-section">
+        <h3>Modify Project</h3>
+        <form class="management-form">
+          <div class="form-group">
+            <label>Project Name</label>
+            <input class="form-input" type="text" [(ngModel)]="updateProjectData.name" name="name" required>
+          </div>
+          <div class="form-group">
+            <label>Description</label>
+            <input class="form-input" type="text" [(ngModel)]="updateProjectData.description" name="description">
+          </div>
+          <div class="form-group">
+            <label>Abbreviation</label>
+            <input class="form-input" type="text" [(ngModel)]="updateProjectData.abbr" name="abbr">
+          </div>
+          <div class="modal-actions">
+            <button class="submit-btn" type="button" (click)="updateProject(selectedProjectId)">Update</button>
+            <button class="toggle-btn" type="button" (click)="cancelUpdate()">Cancel</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Archived Projects Modal -->
+    <div class="modal" *ngIf="isViewingArchived">
+      <div class="modal-content management-section">
+        <h3>Archived Projects</h3>
+        <table class="project-table">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Abbreviation</th>
+              <th>Description</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let project of projects | filter: { archived: true }">
+              <td>{{ project.name }}</td>
+              <td>{{ project.abbr }}</td>
+              <td>{{ project.description }}</td>
+              <td>
+                <button class="action-icon unarchive-icon" (click)="unarchiveProject(project.id); $event.stopPropagation()" title="Unarchive">
+                  <i class="fas fa-box-open"></i>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <br>
+        <div class="modal-actions">
+          <button class="toggle-btn" type="button" (click)="closeArchivedModal()">Close</button>
+        </div>
+      </div>
+    </div>
+</div>

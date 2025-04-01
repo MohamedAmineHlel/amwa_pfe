@@ -11,23 +11,7 @@ export class UsersService {
   private BASE_URL = "http://localhost:1010";
 
   constructor(private http: HttpClient) { }
-  async uploadImage(userId: string, image: File, token: string): Promise<any> {
-    const url = `${this.BASE_URL}/user/upload-image/${userId}`; // Update with the correct URL
-    const formData = new FormData();
-    formData.append('image', image, image.name);
-  
-    const headers = new HttpHeaders({
-      'Authorization': `Bearer ${token}`,
-    });
-  
-    try {
-      const response = await this.http.post<any>(url, formData, { headers }).toPromise();
-      return response;
-    } catch (error) {
-      throw error;
-    }
-  }
-  
+
 
   async login(email:string, password:string):Promise<any>{
     const url = `${this.BASE_URL}/auth/login`;
@@ -147,7 +131,15 @@ export class UsersService {
   isUser(): boolean {
     if(typeof localStorage !== 'undefined'){
       const role = localStorage.getItem('role');
-      return role === 'USER' || role === 'OPERATOR' || role === 'SUPERVISOR' || role === 'MANAGER' || role === 'SUPERMANAGER';
+      return role === 'USER' || role === 'OPERATOR' || role === 'SUPERVISOR' || role === 'MANAGER' ;
+    }
+    return false;
+
+  }
+  isSuperManager(): boolean {
+    if(typeof localStorage !== 'undefined'){
+      const role = localStorage.getItem('role');
+      return role === 'SUPERMANAGER';
     }
     return false;
 
@@ -160,6 +152,22 @@ getAllUsers2(token: string): Observable<any> {
   });
 
   return this.http.get<any>(url, { headers });
+}
+async uploadImage(userId: string, image: File, token: string): Promise<any> {
+  const url = `${this.BASE_URL}/user/upload-image/${userId}`; // Update with the correct URL
+  const formData = new FormData();
+  formData.append('image', image, image.name);
+
+  const headers = new HttpHeaders({
+    'Authorization': `Bearer ${token}`,
+  });
+
+  try {
+    const response = await this.http.post<any>(url, formData, { headers }).toPromise();
+    return response;
+  } catch (error) {
+    throw error;
+  }
 }
 
 }

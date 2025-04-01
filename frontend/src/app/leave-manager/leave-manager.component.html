@@ -1,0 +1,94 @@
+<div class="container">
+  <div class="dashboard-card">
+    <div class="card-header">
+      <h2 class="section-title">Liste des Congés</h2>
+      <button class="add-leave-btn" (click)="openToast()">+ Ajouter une demande</button>
+    </div>
+    <div class="card-body">
+      <p *ngIf="errorMessage" class="error-message">{{ errorMessage }}</p>
+      <div class="search-container">
+        <input 
+          type="text" 
+          placeholder="Rechercher par description ou statut..." 
+          [(ngModel)]="searchTerm" 
+          (ngModelChange)="filterLeaves()"
+          class="search-input"
+        />
+        <span class="search-icon fa fa-search"></span>
+      </div>
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>Date de début</th>
+              <th>Date de fin</th>
+              <th>Description</th>
+              <th>Statut</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let leave of filteredLeaves | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage }">
+              <td>{{ leave.startDate }}</td>
+              <td>{{ leave.endDate }}</td>
+              <td>{{ leave.description }}</td>
+              <td>{{ leave.status }}</td>
+              <td><button (click)="openUpdateToast(leave)" class="action-btn update-btn" ><span class="fa fa-edit"></span></button>
+                <button (click)="deleteLeave(leave.id)" class="action-btn delete-btn" ><span class="fa fa-trash"></span></button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <pagination-controls (pageChange)="changePage($event)" class="pagination-controls"></pagination-controls>
+    </div>
+  </div>
+</div>
+
+<!-- Toast Modal pour la création de congé -->
+<div class="toast-modal" *ngIf="showToast">
+  <div class="toast-content">
+    <h3>Créer une demande de congé</h3>
+    <form (ngSubmit)="submitLeave()">
+      <div>
+        <label for="startDate">Date de début :</label>
+        <input type="date" id="startDate" [(ngModel)]="newLeave.startDate" name="startDate" required />
+      </div>
+      <div>
+        <label for="endDate">Date de fin :</label>
+        <input type="date" id="endDate" [(ngModel)]="newLeave.endDate" name="endDate" required />
+      </div>
+      <div>
+        <label for="description">Description :</label>
+        <textarea id="description" [(ngModel)]="newLeave.description" name="description" required></textarea>
+      </div>
+      <button type="submit" class="submit-btn">Valider</button>
+      <button type="button" class="close-btn" (click)="closeToast()">Annuler</button>
+    </form>
+  </div>
+</div>
+
+
+<!-- Toast Modal pour la mise à jour du congé -->
+<div class="toast-modal" *ngIf="showUpdateToast && selectedLeave">
+  <div class="toast-content">
+    <h3>Mettre à jour la demande de congé</h3>
+    <form (ngSubmit)="updateLeave()">
+      <div>
+        <label for="startDate">Date de début :</label>
+        <input type="date" id="startDate" [(ngModel)]="selectedLeave.startDate" name="startDate" required />
+      </div>
+      <div>
+        <label for="endDate">Date de fin :</label>
+        <input type="date" id="endDate" [(ngModel)]="selectedLeave.endDate" name="endDate" required />
+      </div>
+      <div>
+        <label for="description">Description :</label>
+        <textarea id="description" [(ngModel)]="selectedLeave.description" name="description" required></textarea>
+      </div>
+      <button type="submit" class="submit-btn">Valider</button>
+      <button type="button" class="close-btn" (click)="closeUpdateToast()">Annuler</button>
+    </form>
+  </div>
+</div>
+

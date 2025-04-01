@@ -18,9 +18,11 @@ export class NavComponent implements OnInit {
   isUser: boolean = false;
   isSidebarCollapsed: boolean = false;
   isUserManagementOpen: boolean = false;
+  isLeaveOpen: boolean = false;
+  isDropdownOpen: boolean = false; // New property for dropdown state
   profileInfo: any;
   errorMessage: string = '';
-
+  role=localStorage.getItem('role')
 
 
   async ngOnInit() {
@@ -44,6 +46,7 @@ export class NavComponent implements OnInit {
     this.isAuthenticated = false;
     this.isAdmin = false;
     this.isUser = false;
+    this.isDropdownOpen = false; // Close dropdown on logout
     this.router.navigate(['/login']).then(() => {
       window.location.reload();
     });
@@ -54,6 +57,16 @@ export class NavComponent implements OnInit {
   }
   toggleUserManagement() {
     this.isUserManagementOpen = !this.isUserManagementOpen;
+  }
+  toggleLeave() {
+    this.isLeaveOpen = !this.isLeaveOpen;
+  }
+  toggleDropdown(): void {
+    this.isDropdownOpen = !this.isDropdownOpen;
+  }
+
+  closeDropdown(): void {
+    this.isDropdownOpen = false;
   }
   showError(message: string) {
     this.errorMessage = message;

@@ -22,7 +22,6 @@ export class ProfileComponent implements OnInit {
   async ngOnInit() {
     try {
       const token = localStorage.getItem('token')
-      console.log('profile token',token)
       if(!token){
         throw new Error("No Token Found")
       }

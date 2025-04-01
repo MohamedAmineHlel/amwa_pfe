@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { UsersService } from '../users.service';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { FormsModule } from '@angular/forms';
-import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
+
 
 
 @Component({
@@ -24,11 +24,9 @@ export class UserslistComponent implements OnInit {
   itemsPerPage: number = 5; 
   searchName: string = ''; // Add this for two-way binding
   filteredUsers: any[] = []; // Add this for filtered results
-  baseImageUrl: string = 'http://localhost:1010/uploads/image/'; // Adjust based on your backend URL
   constructor(
     private readonly userService: UsersService,
     private readonly router: Router,
-    private sanitizer: DomSanitizer
   ) {}
 
   
@@ -42,12 +40,8 @@ export class UserslistComponent implements OnInit {
       const token: any = localStorage.getItem('token');
       const response = await this.userService.getAllUsers(token);
       if (response && response.statusCode === 200 && response.ourUsersList) {
-        this.users = response.ourUsersList.map((user: any) => ({
-          ...user,
-          imageUrl: this.getImageUrl(user.image)
-        }));
+        this.users = response.ourUsersList;
         this.filteredUsers = [...this.users]; // Initialize filteredUsers with all users
-        console.log(this.users);
       } else {
         this.showError('No users found.');
       }
@@ -55,16 +49,7 @@ export class UserslistComponent implements OnInit {
       this.showError(error.message);
     }
   }
-
-  getImageUrl(imagePath: string): SafeUrl {
-    if (!imagePath) return '';
-    
-    // Extract filename from the path
-    const filename = imagePath.split('\\').pop() || imagePath.split('/').pop();
-    const fullUrl = `${this.baseImageUrl}${filename}`;
-    return this.sanitizer.bypassSecurityTrustUrl(fullUrl);
-  }
-
+ 
   filterUsers() {
     if (this.searchName.trim() === '') {
       this.filteredUsers = [...this.users]; // Reset to all users when search is empty
@@ -90,10 +75,7 @@ export class UserslistComponent implements OnInit {
       }
     }
   }
-  handleImageError(event: Event) {
-    // Handle image loading errors (e.g., show default image)
-    (event.target as HTMLImageElement).src = 'path/to/default-image.jpg';
-  }
+
   navigateToUpdate(userId: string) {
     this.router.navigate(['/update', userId]);
   }

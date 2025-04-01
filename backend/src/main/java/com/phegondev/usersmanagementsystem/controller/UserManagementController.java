@@ -4,6 +4,8 @@ import com.phegondev.usersmanagementsystem.dto.ReqRes;
 import com.phegondev.usersmanagementsystem.entity.OurUsers;
 import com.phegondev.usersmanagementsystem.service.UsersManagementService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.Resource;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -18,7 +20,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Map;
-import java.util.Optional;
 
 @RestController
 public class UserManagementController {
@@ -26,7 +27,6 @@ public class UserManagementController {
     private UsersManagementService usersManagementService;
     @Value("${upload.path}")
     private String uploadPath;
-
     @GetMapping("/user/all")
     public ReqRes getAllImages() {
         return usersManagementService.getAllImages();
@@ -38,10 +38,10 @@ public class UserManagementController {
         return ResponseEntity.ok(usersManagementService.uploadImage(file, userId));
     }
 
-    @GetMapping("/uploads/image/{filename:.+}")
+    @GetMapping("/uploads/faceID/{filename:.+}")
     public ResponseEntity<Resource> serveImage(@PathVariable String filename) {
         try {
-            Path filePath = Paths.get(uploadPath).resolve(filename).normalize();
+            Path filePath = Paths.get(uploadPath+"/faceID").resolve(filename).normalize();
             Resource resource = new UrlResource(filePath.toUri());
 
             if (resource.exists() && resource.isReadable()) {
@@ -55,9 +55,9 @@ public class UserManagementController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
-    @PostMapping("/auth/register")
-    public ResponseEntity<ReqRes> regeister(@RequestBody ReqRes reg){
-        return ResponseEntity.ok(usersManagementService.register(reg));
+    @GetMapping("/admin/user-images")
+    public ResponseEntity<ReqRes> getAllUserImages() {
+        return ResponseEntity.ok(usersManagementService.getAllUserImages());
     }
     @PostMapping("/auth/login-faceid")
     public ResponseEntity<ReqRes> loginViaFaceID(@RequestBody Map<String, String> request) {
@@ -65,6 +65,11 @@ public class UserManagementController {
         ReqRes response = usersManagementService.loginViaFaceID(email);
         return ResponseEntity.status(response.getStatusCode()).body(response);
     }
+    @PostMapping("/auth/register")
+    public ResponseEntity<ReqRes> regeister(@RequestBody ReqRes reg){
+        return ResponseEntity.ok(usersManagementService.register(reg));
+    }
+
     @PostMapping("/auth/login")
     public ResponseEntity<ReqRes> login(@RequestBody ReqRes req){
         return ResponseEntity.ok(usersManagementService.login(req));
@@ -86,10 +91,7 @@ public class UserManagementController {
         return ResponseEntity.ok(usersManagementService.getUsersById(userId));
 
     }
-    @GetMapping("/admin/user-images")
-    public ResponseEntity<ReqRes> getAllUserImages() {
-        return ResponseEntity.ok(usersManagementService.getAllUserImages());
-    }
+
     @PutMapping("/admin/update/{userId}")
     public ResponseEntity<ReqRes> updateUser(@PathVariable Integer userId, @RequestBody OurUsers reqres){
         return ResponseEntity.ok(usersManagementService.updateUser(userId, reqres));

@@ -13,7 +13,7 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id") // ✅ Prevent recursion
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 
 public class Team {
 
@@ -24,14 +24,18 @@ public class Team {
     private String teamName;
 
     @OneToMany(mappedBy = "team", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JsonBackReference  // Unique value for this reference
+    @JsonBackReference
     private List<OurUsers> users;
 
     @OneToMany(mappedBy = "team", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    //@JsonIgnoreProperties("team") // Allows full serialization while avoiding recursion
-    //@JsonBackReference(value = "team-tasks")  // Unique value for this reference
-    //@JsonBackReference(value = "task-team")  // Back reference for team-related tasks
-    @JsonBackReference(value = "task-team")  // Manage task-team serialization
+    @JsonBackReference(value = "task-team")
 
     private List<Task> tasks;
+
+    @OneToOne
+    @JoinColumn(name = "project_id")
+    @JsonManagedReference
+    private Project project;
+
+
 }

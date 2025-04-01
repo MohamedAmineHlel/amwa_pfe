@@ -8,7 +8,12 @@ import { usersGuard, adminGuard,authGuard, defaultGuard  } from './users.guard';
 import { TeamManagementComponent } from './team-management/team-management.component';
 import { TeamModalComponent } from './team-modal/team-modal.component';
 import { TaskComponent } from './task/task.component';
+import { ProjectManagementComponent } from './project-management/project-management.component';
+import { AirlineManagementComponent } from './airline-management/airline-management.component';
+import { CalendarComponent } from './calendar/calendar.component';
 import { AiFaceLoginComponent } from './ai-face-login/ai-face-login.component';
+import { LeaveManagerComponent } from './leave-manager/leave-manager.component';
+import { LeavesUsersComponent } from './leaves-users/leaves-users.component';
 
 
 
@@ -21,7 +26,14 @@ export const routes: Routes = [
     {path: 'teams', component: TeamManagementComponent },
     {path: 'teams/:id/users', component: TeamModalComponent , canActivate: [usersGuard]},
     {path: 'tasks', component: TaskComponent },
-    {path:'aiLoginFaceId', component:AiFaceLoginComponent},
+    {path: 'projects', component: ProjectManagementComponent },
+    {path: 'airlines', component: AirlineManagementComponent },
+    {path: 'calendar', component: CalendarComponent },
+    {path:'aiLoginFaceId',component:AiFaceLoginComponent},
+    {path:'leave',component:LeaveManagerComponent},
+    {path:'leaves-users',component:LeavesUsersComponent},
+
+
 
 
 

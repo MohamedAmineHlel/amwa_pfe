@@ -7,6 +7,8 @@ import { CommonModule } from '@angular/common';
 import { TeamModalComponent } from '../team-modal/team-modal.component';
 import { TaskService } from '../service/task.service';
 import { TaskModalComponent } from '../task-modal/task-modal.component';
+import { ProjectService } from '../service/project.service';
+import { AirlineService } from '../service/airline.service';
 
 @Component({
   selector: 'app-team-management',
@@ -14,17 +16,21 @@ import { TaskModalComponent } from '../task-modal/task-modal.component';
   imports: [FormsModule, CommonModule,TeamModalComponent,TaskModalComponent],
   templateUrl: './team-management.component.html',
   styleUrls: ['./team-management.component.css'],
-  providers: [TeamService],
+  providers: [TeamService, ProjectService, AirlineService],
 })
 export class TeamManagementComponent {
 
   teamName: string = '';
+  projectId: string = ''; // New field for project selection
+  airlineId: string = ''; // New field for airline selection
   userId: number | null = null;
   teamId: number | null = null;
   message: string = '';
   errorMessage: string = '';
   teams: any[] = []; // Store list of teams
   users: any[] = []; // Store list of users
+  projects: any[] = []; // Store list of projects
+
   selectedTeamName: string = '';
   selectedTeamMembers: any[] | null = null; // Initialize as null
   isAuthenticated: boolean = false;
@@ -33,14 +39,25 @@ export class TeamManagementComponent {
   tasks: any[] = [];
   teamTaskCounts: { [key: number]: number } = {}; // To store task count per team
   selectedTeamTasks: any[] | null = null;; // Store tasks for the modal
-
-  constructor(private taskService: TaskService,private teamService: TeamService, private router: Router, private userService: UsersService){ }
+  showCreateTeamForm: boolean = false; // Default to true to show the form initially
+  isCreatingTeam: boolean = false; // New property to control the modal
+  // Properties for Modify Team Modal
+  isModifyingTeam: boolean = false;
+  selectedTeam: any = null;
+  modifyTeamName: string = '';
+  modifyProjectId: string = '';
+  modifyAirlineId: string = '';
+  availableProjects: any[] = []; // Filtered projects not assigned to teams
+ 
+  constructor(private taskService: TaskService,private teamService: TeamService, private router: Router, private userService: UsersService,private projectService: ProjectService,private airlineService: AirlineService){ }
 
 
   ngOnInit(): void {
     this.getAllTeams();
     this.loadUsers(); // Ensure users are loaded first
     this.loadTasks();
+    this.loadProjects(); // Load projects
+
     this.isAuthenticated = this.userService.isAuthenticated();
     this.isAdmin = this.userService.isAdmin();
     this.isUser = this.userService.isUser();
@@ -68,7 +85,32 @@ export class TeamManagementComponent {
  
 
  
+  // Load all projects and filter available ones
+  loadProjects() {
+    this.projectService.getAllProjects().subscribe({
+      next: (response) => {
+        if (response.statusCode === 200) {
+          this.projects = response.projectsList || [];
+          this.updateAvailableProjectsAndAirlines(); // Filter after loading
+        } else {
+          this.showError('Failed to load projects');
+        }
+      },
+      error: (err) => this.showError('Error fetching projects: ' + err.message)
+    });
+  }
+
+
+
+  // Update available projects and airlines based on team assignments
+  updateAvailableProjectsAndAirlines() {
+    // Filter projects that are not assigned to any team
+    this.availableProjects = this.projects.filter(project => 
+      !this.teams.some(team => team.project && team.project.id === project.id)
+    );
+
   
+  }
   
   
   
@@ -108,6 +150,7 @@ export class TeamManagementComponent {
           // Fetch tasks for each team after retrieving the teams
           this.countTasksForTeam(team.id);
         });
+        this.updateAvailableProjectsAndAirlines(); // Update available lists after fetching teams
       },
       (error) => {
         console.error('Error retrieving teams:', error);  // Log error if any
@@ -143,7 +186,7 @@ export class TeamManagementComponent {
         console.error('Error fetching tasks', error);
       }
     );
-  }
+  } 
 
   getTeamName(teamId: number | any): string {
     if (!teamId) return 'N/A';
@@ -163,14 +206,6 @@ export class TeamManagementComponent {
 
 
 
-  
-  
-
-
-
-
-
-
 
   
   // Get the count of members in a team
@@ -184,7 +219,6 @@ export class TeamManagementComponent {
       return false;
     }).length;
   }
-
 
 
 
@@ -224,36 +258,119 @@ export class TeamManagementComponent {
   }
   
 
-  // Create a new team
-  createTeam() {
-    if (this.teamName) {
-      this.teamService.createTeam(this.teamName).subscribe(
-        (response) => {
+ // Create a new team
+ createTeam() {
+  if (this.teamName) {
+    const teamData = {
+      teamName: this.teamName,
+      projectId: this.projectId || undefined, // Send undefined if not selected
+      airlineId: this.airlineId || undefined // Send undefined if not selected
+    };
+    this.teamService.createTeam(teamData).subscribe(
+      (response) => {
+        if (response.statusCode === 201) {
           this.message = 'Team created successfully!';
-          this.getAllTeams();
-        },
-        (error) => {
-          this.message = 'Error creating team';
+          this.getAllTeams(); // Refresh team list
+          this.isCreatingTeam = false; // Close modal on success
+          this.teamName = ''; // Reset form
+          this.projectId = '';
+          this.airlineId = '';
+          this.showCreateTeamForm = false; // Hide form after creation
+        } else {
+          this.showError(response.message || 'Error creating team');
         }
-      );
-    }
+      },
+      (error) => {
+        this.showError('Error creating team: ' + error.message);
+      }
+    );
+  } else {
+    this.showError('Team name is required');
   }
+}
+// Open create team modal
+openCreateTeamModal() {
+  this.isCreatingTeam = true;
+  this.teamName = '';
+  this.projectId = '';
+  this.airlineId = '';
+}
+// Cancel create team
+cancelCreateTeam() {
+  this.isCreatingTeam = false;
+  this.teamName = '';
+  this.projectId = '';
+  this.airlineId = '';
+}
+
+// Open Modify Team Modal
+openModifyTeamModal(team: any) {
+  this.isModifyingTeam = true;
+  this.selectedTeam = team;
+  this.modifyTeamName = team.teamName;
+  this.modifyProjectId = team.project ? team.project.id : '';
+  this.modifyAirlineId = team.airline ? team.airline.id : '';
+}
+
+// Cancel Modify Team
+cancelModifyTeam() {
+  this.isModifyingTeam = false;
+  this.selectedTeam = null;
+  this.modifyTeamName = '';
+  this.modifyProjectId = '';
+  this.modifyAirlineId = '';
+}
+
+// Modify an existing team
+modifyTeam() {
+  if (this.modifyTeamName && this.selectedTeam) {
+    const teamData = {
+      teamName: this.modifyTeamName,
+      projectId: this.modifyProjectId || null, // Send null if not selected
+      airlineId: this.modifyAirlineId || null // Send null if not selected
+    };
+    this.teamService.modifyTeam(this.selectedTeam.id, teamData).subscribe(
+      (response) => {
+        if (response.statusCode === 200) {
+          this.message = 'Team modified successfully!';
+          this.getAllTeams(); // Refresh team list
+          this.isModifyingTeam = false; // Close modal on success
+          this.selectedTeam = null;
+          this.modifyTeamName = '';
+          this.modifyProjectId = '';
+          this.modifyAirlineId = '';
+        } else {
+          this.showError(response.message || 'Error modifying team');
+        }
+      },
+      (error) => {
+        this.showError('Error modifying team: ' + error.message);
+      }
+    );
+  } else {
+    this.showError('Team name is required');
+  }
+}
 
   // Assign a user to a team
   assignUserToTeam() {
     if (this.userId && this.teamId) {
       this.teamService.assignUserToTeam(this.userId, this.teamId).subscribe(
         (response) => {
-          this.message = 'User assigned to team successfully!';
-          this.loadUsers(); // Refresh users list to remove assigned users
-
+          if (response.statusCode === 200) {
+            this.message = 'User assigned to team successfully!';
+            this.loadUsers(); // Refresh users list to remove assigned users
+          } else {
+            this.showError(response.message); // Display error message from the backend
+          }
         },
         (error) => {
-          this.message = 'Error assigning user to team';
+          this.showError('Error assigning user to team');
         }
       );
     }
   }
+  
 
   // Unassign a user from a team
   unassignUserFromTeam() {
@@ -353,5 +470,8 @@ deleteTeam2(teamId: number) {
     }
   
     return 'Unknown';
+  }
+  toggleCreateTeamForm() {
+    this.showCreateTeamForm = !this.showCreateTeamForm; // Toggle the form visibility
   }
 }

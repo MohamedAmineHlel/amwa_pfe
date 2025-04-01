@@ -19,7 +19,7 @@ export class AiFaceLoginComponent implements OnInit, OnDestroy {
   isRecording: boolean = false;
   retryRecording: boolean = true; // Continue recording if face is unknown
   message: string="Détection faciale en cours...";
-  constructor(private http: HttpClient, private router: Router, private aiservice:AiFaceIdService) {}
+  constructor(private http: HttpClient, private router: Router) {}
 
   ngOnInit() {
     this.setupCamera();
